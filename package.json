@@ -1,0 +1,31 @@
+{
+  "name": "numbat-ui",
+  "version": "0.1.0",
+  "description": "A React Component Library based on Google's Material Design",
+  "main": "src/index.js",
+  "scripts": {
+    "compile": "babel --stage 0 -d lib/ src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesknelson/numbat-ui.git"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "ui",
+    "frontend",
+    "material"
+  ],
+  "author": "James K Nelson <james@jamesknelson.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamesknelson/numbat-ui/issues"
+  },
+  "homepage": "https://github.com/jamesknelson/numbat-ui",
+  "dependencies": {
+    "classnames": "^2.1.2",
+    "invariant": "^1.0.2",
+    "react-addons-css-transition-group": "^0.14.0-beta1"
+  }
+}

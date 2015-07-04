@@ -1,0 +1,63 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-FocusRipple {
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  top: 50%;
+  left: 0;
+
+  // padding-top is a percentage of width, allowing us to make a perfectly
+  // square absolute box
+  // http://stackoverflow.com/questions/12121090/responsively-change-div-size-keeping-aspect-ratio
+  &:after {
+    padding-top: 100%;
+    display: block;
+    content: '';
+  }
+
+  .nui-ease-out();
+
+  opacity: 0;
+  transform: translateY(-50%) scale(0);
+
+  &-is-shown {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+
+  &-inner {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: 50%;
+
+    .nui-pulsate(
+      @animation-name: nui-FocusRipple-pulsate;
+      @start-size: 0.75;
+      @end-size: 0.85;
+    );
+  }
+
+  &-is-primary > &-inner {
+    background-color: @nui-primary-focused;
+  }
+
+  &-is-accent > &-inner {
+    background-color: @nui-accent-focused;
+  }
+
+  &-is-highlight-primary > &-inner {
+    background-color: @nui-highlight-primary-focused;
+  }
+
+  &-is-highlight-accent > &-inner {
+    background-color: @nui-highlight-accent-focused;
+  }
+
+  &-is-highlight > &-inner {
+    background-color: @nui-highlight-focused;
+  }
+}

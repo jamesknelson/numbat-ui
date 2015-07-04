@@ -1,0 +1,67 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-FloatingActionButton {
+  display: inline-block;
+
+  &-label {
+    position: relative;
+  }
+
+  &-container {
+    .nui-target-reset();
+  }
+
+  &-mini-container {
+    padding: (@nui-min-target-size - @nui-fab-mini-size)/2;
+  }
+
+  &-inner {
+    position: relative;
+    height: @nui-fab-size;
+    width: @nui-fab-size;
+    padding: (@nui-fab-size - @nui-icon-size) / 2;
+    margin: 0;
+
+    .nui-ease-out();
+
+    border-radius: 50%;
+    overflow: hidden;
+    user-select: none;
+
+    //This is need so that ripples do not bleed
+    //past border radius.
+    //See: http://stackoverflow.com/questions/17298739/css-overflow-hidden-not-working-in-chrome-when-parent-has-border-radius-and-chil
+    transform: translate(0, 0);
+  }
+
+  &-mini-inner {
+    height: @nui-fab-mini-size;
+    width: @nui-fab-mini-size;
+    padding: (@nui-fab-mini-size - @nui-icon-size) / 2;
+  }
+
+  &-primary-inner {
+    color: @white;
+    background-color: @nui-primary;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-primary-hover;
+    }
+  }
+
+  &-accent-inner {
+    color: @white;
+    background-color: @nui-accent;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-accent-hover;
+    }
+  }
+
+  &-disabled-inner {
+    color: @nui-light-hint;
+    background-color: @nui-highlight-disabled !important;
+  }
+}

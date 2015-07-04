@@ -1,0 +1,52 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-RippleCircle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0.7;
+
+  .nui-ease-out(@property: opacity; @duration: 2s);
+  
+  &-inner {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    transform: scale(0);
+
+    .nui-ease-out(@property: transform; @duration: 1s);
+  }
+
+  &-is-started {
+    opacity: 1;
+  }
+  &-is-started > &-inner {
+    transform: scale(1);
+  }
+
+  &-is-ending {
+    opacity: 0;
+  }
+
+  &-is-primary > &-inner {
+    background-color: @nui-primary-pressed;
+  }
+
+  &-is-accent > &-inner {
+    background-color: @nui-accent-pressed;
+  }
+
+  &-is-highlight-primary > &-inner {
+    background-color: @nui-highlight-primary-pressed;
+  }
+
+  &-is-highlight-accent > &-inner {
+    background-color: @nui-highlight-accent-pressed;
+  }
+
+  &-is-highlight > &-inner {
+    background-color: @nui-highlight-pressed;
+  }
+}

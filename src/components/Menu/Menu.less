@@ -1,0 +1,69 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-Menu {
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  &-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: @nui-z-menu;
+  }
+}
+
+// Supply div to make sure we're overwriting paper transition style
+div.nui-MenuPopup {
+  position: fixed;
+  opacity: 1;
+  z-index: @nui-z-menu;
+  overflow: hidden;
+
+  background-color: @nui-canvas-paper;
+
+  text-align: left;
+
+  &-inner {
+    overflow: hidden;
+    padding: @nui-menu-inner-padding-h 0;
+  }
+  &-closed {
+    opacity: 0;
+    height: 0px !important;
+  }
+
+  transition: opacity 450ms @nui-timing-ease-out, height 450ms @nui-timing-ease-out;
+}
+
+.nui-MenuItem {
+  .nui-type-subhead-1();
+
+  margin: 0;
+  padding: 0;
+
+  &-inner {
+    padding: 0 @nui-menu-inner-padding-w;
+    line-height: @nui-menu-item-h;
+
+    &:hover {
+      background-color: @nui-highlight-hover;
+    }
+  }
+
+  &-ripple {
+    display: block !important;
+  }
+
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.nui-MenuDivider {
+  margin-top: @nui-menu-divider-h/2-1;
+  border-top: 1px solid @nui-light-divider;
+  padding-top: @nui-menu-divider-h/2;
+}

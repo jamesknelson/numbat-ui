@@ -1,0 +1,59 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-StandardLayout {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+
+  &-navigation-enter {
+    .nui-nav-slide-right();
+  }
+  &-navigation-leave {
+    .nui-nav-drop-out();
+  }
+
+  @media @nui-device-lg {
+    left: -@nui-nav-drawer-w;
+    transition: left 0.2s @nui-timing-ease-out;
+
+    &-menu-open {
+      left: 0;
+      transition: left 0.2s @nui-timing-enter;
+    }
+  }
+
+  /*
+    Use flex-box to allow us to smoothly resize the main area and drawer area
+    at the same time
+   */
+  display: flex;
+
+  &-view-container {
+    position: relative;
+    flex-grow: 1;
+  }
+
+  &-view {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    overflow: hidden;
+
+    background-color: @nui-canvas-view;
+  }
+
+  &-menu {
+    flex: 0 @nui-nav-drawer-w;
+
+    position: relative;
+    z-index: 1005;
+    height: 100%;
+    width: 100%;
+  }
+}

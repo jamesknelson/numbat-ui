@@ -1,0 +1,28 @@
+/* ENTER */
+
+.nui-nav-slide-right() {
+  position: relative;
+  transition: transform .7s @nui-timing-enter;
+  transform: translate(-100%, 0);
+
+  &-active {
+    transform: translate(0, 0%);
+  }
+  z-index: 2;
+}
+
+
+/* LEAVE */
+
+.nui-nav-drop-out() {
+  position: relative;
+  transition: opacity .7s @nui-timing-ease-out, transform .7s @nui-timing-ease-out;
+  transform: scale(1);
+  opacity: 1;
+
+  &-active {
+    transform: scale(.7);
+    opacity: 0;
+  }
+  z-index: 1;
+}

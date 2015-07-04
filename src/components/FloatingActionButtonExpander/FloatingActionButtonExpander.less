@@ -1,0 +1,52 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-FloatingActionButtonExpander {
+  position: relative;
+  display: block;
+  width: @nui-fab-size;
+  height: @nui-fab-size;
+
+  &-toggle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.3s @nui-timing-ease-out, opacity 0.3s @nui-timing-ease-out, box-shadow @nui-timing-ease-out 0.2s, color @nui-timing-ease-out 0.05s;
+  }
+
+  &-expanded {
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 0.2s linear;
+    transition-delay: 0.1s;
+  }
+
+  &-button-wrapper {
+    height: 0;
+    overflow: visible;
+    transition: height 0.3s @nui-timing-ease-out;
+  }
+
+  &-open > &-toggle {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  &-open > &-expanded {
+    transition-property: opacity;
+    transition-delay: initial;
+    opacity: 1;
+    z-index: 2;
+  }
+  &-open > &-expanded > &-button-wrapper {
+    height: @nui-fab-size;
+    margin-bottom: 16px;
+  }
+}

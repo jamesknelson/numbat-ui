@@ -1,0 +1,53 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-FlatButton {
+  display: inline-block;
+
+  &-label {
+    position: relative;
+  }
+
+  &-container {
+    .nui-target-reset();
+    padding: @nui-button-outer-padding-h @nui-button-outer-padding-w;
+  }
+
+  &-inner {
+    .nui-button-square-inner();
+  }
+
+  &-default-inner {
+    color: @nui-light-text;
+    background-color: @white;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-highlight-hover;
+    }
+  }
+
+  &-primary-inner {
+    color: @nui-primary;
+    background-color: @white;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-highlight-primary-hover;
+    }
+  }
+
+  &-accent-inner {
+    color: @nui-accent;
+    background-color: @white;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-highlight-accent-hover;
+    }
+  }
+
+  &-disabled-inner {
+    color: @nui-light-hint;
+    background-color: @nui-highlight-disabled !important;
+  }
+}

@@ -1,0 +1,67 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-Tooltip {
+  position: absolute;
+  left: 50%;
+
+  &-inner {
+    .nui-type-tooltip();
+
+    padding: 0 @nui-tooltip-inner-padding-w;
+
+    position: absolute;
+    top: -10000px;
+    overflow: hidden;
+    z-index: @nui-z-tooltip;
+
+    border-radius: 2px;
+    user-select: none;
+    opacity: 0;
+
+    transform: translate(-50%, 0);
+
+    transition:
+      top 0ms @nui-timing-ease-out 450ms,
+      transform 450ms @nui-timing-ease-out 0ms,
+      opacity 450ms @nui-timing-ease-out 0ms;
+  }
+
+  &-label {
+    position: relative;
+    white-space: nowrap;
+  }
+
+  &-ripple {
+    position: absolute;
+    left: 50%;
+    top: 0px;
+
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: transparent;
+
+    transition:
+      width 0ms @nui-timing-ease-out 450ms,
+      height 0ms @nui-timing-ease-out 450ms,
+      background-color 450ms @nui-timing-ease-out 0ms;
+  }
+
+  &-is-shown {
+    top: -16px;
+    opacity: 1;
+    transform: translate3d(-50%, 16px, 0px);
+
+    transition:
+      top 0ms @nui-timing-ease-out 0ms, 
+      transform 450ms @nui-timing-ease-out 0ms,
+      opacity 450ms @nui-timing-ease-out 0ms;
+  }
+
+  &-is-shown > &-ripple {
+    background-color: @grey-600;
+    transition:
+      width 450ms @nui-timing-ease-out 0ms,
+      height 450ms @nui-timing-ease-out 0ms,
+      background-color 450ms @nui-timing-ease-out 0ms;
+  }
+}

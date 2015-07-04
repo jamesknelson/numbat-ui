@@ -1,0 +1,44 @@
+.nui-target-reset() {
+  display: block;
+  text-decoration: none !important;
+  user-select: none;
+  border: 0;
+  background: none;
+  padding: 0;
+  margin: 0;
+
+  cursor: pointer;
+
+  &[disabled] {
+    cursor: default;
+  }
+
+  &:hover {
+    text-decoration: none !important;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.nui-button-square-inner() {
+  .nui-ease-out();
+  .nui-type-button();
+
+  border-radius: 2px;
+  overflow: hidden;
+  user-select: none;
+
+  //This is need so that ripples do not bleed
+  //past border radius.
+  //See: http://stackoverflow.com/questions/17298739/css-overflow-hidden-not-working-in-chrome-when-parent-has-border-radius-and-chil
+  transform: translate(0, 0);
+
+  position: relative;
+  height: @nui-button-h;
+  line-height: @nui-button-h;
+  min-width: @nui-button-min-width;
+  padding: 0 @nui-button-inner-padding-w;
+  margin: 0;
+}

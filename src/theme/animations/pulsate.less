@@ -1,0 +1,11 @@
+.nui-pulsate(@animation-name; @start-size: 0.75; @end-size: 1; @duration: 1.5s) {
+  @keyframes ~"@{animation-name}" {
+    0%, 100% {
+      transform: scale(@start-size);
+    }
+    50% {
+      transform: scale(@end-size);
+    }
+  }  
+  animation: @animation-name @duration ease 0s infinite;
+}

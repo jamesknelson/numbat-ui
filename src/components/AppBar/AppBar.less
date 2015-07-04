@@ -1,0 +1,40 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-AppBar {
+  position: relative;
+  display: block;
+  width: 100%;
+  background-color: @nui-primary;
+  z-index: @nui-z-app-bar;
+
+  &-inner {
+    padding: @nui-app-bar-inner-padding-h @nui-app-bar-inner-padding-w;
+    text-align: right;
+  }
+
+  &-no-overhang {
+    line-height: @nui-app-bar-h;
+    height: @nui-app-bar-h;
+  }
+
+  &-overhang, &-overhang-md-plus, &-overhang-lg {
+    line-height: @nui-app-bar-h;
+    height: @nui-app-bar-h + @nui-increment-size;
+    margin-bottom: -@nui-increment-size;
+  }
+
+  &-menu-button {
+    float: left;
+  }
+
+  &-title {
+    float: left;
+    .nui-type-headline();
+    vertical-align: middle;
+    line-height: @nui-min-target-size;
+    color: @nui-dark-text;
+    display: inline-block;
+    margin: 0;
+    padding: 0 @nui-app-bar-title-padding-w;
+  }
+}

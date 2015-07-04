@@ -1,0 +1,232 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-list-cell-single() { min-height: @nui-list-cell-h-single; }
+.nui-list-cell-avatar() { min-height: @nui-list-cell-h-avatar; }
+.nui-list-cell-double() { min-height: @nui-list-cell-h-double; }
+.nui-list-cell-triple() { min-height: @nui-list-cell-h-triple; }
+
+
+
+.nui-list-cell-fixed(@contentSize, @whitespaceSize: 0px) {
+  flex-grow: 0;
+
+  // Pre-keyline cell
+  &:first-child {
+    flex-basis: @nui-content-keyline;
+    padding-left: @nui-list-inner-padding-w;
+    text-align: left;
+  }
+
+  // Post-keyline cell
+  :first-child:not(.nui-ListCell-stretch-width) + &:not(.nui-ListCell-stretch-width) {
+    flex-basis: @contentSize + @nui-list-inner-gutter;
+    padding-right: @nui-list-inner-gutter;
+  }
+
+  // Right-hand-side cell
+  .nui-ListCell-stretch-width + & {
+    flex-basis: @contentSize + @nui-list-inner-gutter + @nui-list-inner-padding-w;
+    padding-left: max(@nui-list-inner-gutter - @whitespaceSize, 0);
+    padding-right: @nui-list-inner-padding-w - @whitespaceSize;
+  }
+}
+
+
+
+.nui-List {
+  padding: @nui-list-inner-padding-h 0;
+}
+
+.nui-ListDivider {
+  margin-top: @nui-list-divider-h/2-1;
+  border-top: 1px solid @nui-light-divider;
+  padding-top: @nui-list-divider-h/2;
+
+  &-no-keyline {
+    margin-left: @nui-content-keyline;
+  }
+}
+
+.nui-ListTile {
+  display: block !important;
+  width: 100%;
+
+  &-container {
+    .nui-target-reset();
+  }
+
+  &-bordered + & {
+    margin-top: -1px;
+  }
+
+  &:not(:first-child) &-border-no-keyline {
+    width: 100%;
+    margin-left: @nui-content-keyline;
+    background-color: @nui-light-divider;
+    height: 1px;
+  }
+
+  &-cells {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+  }
+}
+
+.nui-ListCell {
+  position: relative;
+
+  // List Cells can be used as containers for actions
+  .nui-target-reset();
+
+  &-secondary {
+    cursor: default;
+  }
+
+  &-stretch-width {
+    flex-grow: 1;
+  }
+
+  &.nui-ListCell-vertical-align-top {
+    align-self: flex-start;
+    padding-top: @nui-list-align-top-padding !important;
+  }
+
+  &.nui-ListCell-vertical-align-center {
+    align-self: center;
+  }
+
+  &.nui-ListCell-vertical-align-stretch {
+    align-self: stretch;
+  }
+}
+
+.nui-ListKeylineSpacer {
+  .nui-list-cell-fixed(@nui-content-keyline);
+}
+
+.nui-ListAvatar {
+  .nui-list-cell-fixed(@nui-avatar-size);
+  .nui-list-cell-avatar();
+
+  padding-top: (@nui-list-cell-h-avatar - @nui-avatar-size)/2;
+
+  &-icon, &-img {
+    border-radius: 50%;
+  }
+
+  &-icon {
+    position: absolute;
+    color: @nui-light-icon;
+    font-size: @nui-list-cell-h-avatar;
+    width: @nui-avatar-size;
+    height: @nui-avatar-size;
+    background-color: @nui-light-hint;
+    z-index: 3;
+
+    &:before {
+      position: relative;
+      z-index: 2;
+      top: -(@nui-list-cell-h-avatar - @nui-avatar-size)/8;
+      margin-left: -(@nui-list-cell-h-avatar - @nui-avatar-size)/2;
+    }
+  }
+
+  &-img {
+    position: relative;
+    z-index: 4;
+  }
+}
+
+.nui-ListIcon {
+  .nui-list-cell-fixed(@nui-icon-size);
+  .nui-list-cell-single();
+
+  line-height: @nui-list-cell-h-single;
+  color: @nui-light-icon;
+
+  &-icon {
+    vertical-align: middle;
+  }
+}
+
+.nui-ListIcon {
+  .nui-list-cell-fixed(@nui-icon-size);
+  .nui-list-cell-single();
+
+  line-height: @nui-list-cell-h-single;
+  color: @nui-light-icon;
+
+  &-icon {
+    vertical-align: middle;
+  }
+}
+
+.nui-ListIconMenu, .nui-ListIconButton {
+  .nui-list-cell-fixed(@nui-icon-size, (@nui-icon-button-size - @nui-icon-size)/2);
+  .nui-list-cell-single();
+}
+
+.nui-ListLabel {
+  .nui-list-cell-single();
+  .nui-type-subhead-2();
+
+  color: @nui-light-text;
+  padding-top: @nui-list-text-1-padding-top;
+  line-height: 1.0em;
+  margin: 0;
+}
+
+.nui-ListLabeledText {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+
+  color: fade(@nui-light-text, 100%);
+
+  &-single {
+    .nui-list-cell-single();
+    padding-top: @nui-list-text-1-padding-top;
+  }
+  &-double {
+    .nui-list-cell-double(); 
+    padding-top: @nui-list-text-2-padding-top;
+    padding-bottom: @nui-list-text-2-padding-bottom;
+  }
+  &-triple {
+    .nui-list-cell-triple();
+    padding-top: @nui-list-text-3-padding-top;
+    padding-bottom: @nui-list-text-3-padding-bottom;
+  }
+
+  &-double, &-triple {
+    // TODO: make flexbox with label aligned to top, secondary aligned to bottom
+  }
+
+  &-label {
+    flex-grow: 0;
+
+    .nui-type-subhead-2();
+
+    line-height: 1.0em;
+    padding: 0;
+    margin: 0;
+
+    opacity: alpha(@nui-light-text);
+    color: inherit;
+  }
+  &-secondary {
+    flex-grow: 0;
+
+    .nui-type-body-1();
+
+    line-height: 1.0em;
+    padding: 0;
+    margin: 0;
+
+    // Use element opacity instead of color opacity so we can set the hue on
+    // the above element
+    opacity: alpha(@nui-light-secondary);
+    color: inherit;
+  }
+}

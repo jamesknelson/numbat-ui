@@ -1,0 +1,40 @@
+@import (reference) '../../theme/theme.less';
+
+// SideNavs follow the keylines and metrics for single-line lists
+//
+// Side Nav:
+// http://www.google.com/design/spec/patterns/navigation-drawer.html
+//
+// Lists:
+// http://www.google.com/design/spec/components/lists.html#lists-behavior
+
+
+// @nui-NavDrawer-active-bg: lighten(@app-menu-bg, 3%);
+// @nui-NavDrawer-active-text: #ffffff;
+// @nui-NavDrawer-hover-bg: @app-menu-active-bg;
+// @nui-NavDrawer-hover-text: @app-menu-active-text;
+
+.nui-NavMenu {
+  background-color: @nui-canvas-paper;
+
+  width: 100%;
+  height: 100%;
+}
+
+.nui-NavMenuItem {
+  &:hover {
+    background-color: @nui-highlight-hover;
+  }
+  .nui-ease-out(@property: background-color);
+
+  &-label, &-icon {
+    .nui-ease-out(@property: color);
+  }
+
+  &-selected-tile {
+    background-color: @nui-highlight-selected;
+  }
+  &-selected {
+    color: @nui-primary;
+  }
+}

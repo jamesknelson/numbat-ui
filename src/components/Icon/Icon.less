@@ -1,0 +1,55 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-icon(@icon-type: false) {
+  &:before when (isstring(@icon-type)) {
+    @content-var: "mdi-@{icon-type}";
+    content: @@content-var;
+  }
+
+  position: relative;
+  display: inline-block;
+  font: normal normal normal @nui-icon-size 'Material Design Iconic Font';
+  speak: none;
+  text-rendering: auto;
+  user-select: none;
+  height: @nui-icon-size;
+  width: @nui-icon-size;
+  overflow: hidden;
+
+  // Better Font Rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.nui-Icon {
+  &-letter {
+    .nui-icon();
+    text-align: center;
+    line-height: @nui-icon-size;
+    font-size: @nui-icon-size;
+  }
+
+  &-add             { .nui-icon("add"); }
+  &-edit            { .nui-icon("edit"); }
+  &-contacts        { .nui-icon("group"); }
+  &-help            { .nui-icon("help"); }
+  &-log-out         { .nui-icon("exit-to-app"); }
+  &-performance     { .nui-icon("trending-up"); }
+  &-search          { .nui-icon("search"); }
+  &-settings        { .nui-icon("settings"); }
+  &-study           { .nui-icon("school"); }
+  &-user            { .nui-icon("person"); }
+  &-close           { .nui-icon("close"); }
+  &-menu            { .nui-icon("menu"); }
+  &-details-menu    { .nui-icon("more-vert"); }
+  &-star            { .nui-icon("star"); }
+  &-star-open       { .nui-icon("star-outline"); }
+  &-photos          { .nui-icon("photo-camera"); }
+  &-add-to-library  { .nui-icon("add-to-photos"); }
+  &-cards           { .nui-icon("question-answer"); }
+  &-notes           { .nui-icon("speaker-notes")}
+  &-contact-info    { .nui-icon("email"); }
+  &-thumb-up        { .nui-icon("thumb-up"); }
+  &-thumb-down      { .nui-icon("thumb-down"); }
+  &-thumbs-up-down  { .nui-icon("thumbs-up-down"); }
+}

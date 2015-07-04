@@ -1,0 +1,52 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-IconButton {
+  display: inline-block;
+
+  &-container {
+    .nui-target-reset();
+
+    // Tooltips assume their parent uses relative positioning
+    position: relative;
+  }
+
+  &-inner {
+    position: relative;
+    height: @nui-icon-button-size;
+    line-height: @nui-icon-size;
+    width: @nui-icon-button-size;
+    padding: (@nui-icon-button-size - @nui-icon-size) / 2;
+    margin: 0;
+
+    .nui-ease-out();
+
+    border-radius: 50%;
+    overflow: hidden;
+    user-select: none;
+
+    //This is need so that ripples do not bleed
+    //past border radius.
+    //See: http://stackoverflow.com/questions/17298739/css-overflow-hidden-not-working-in-chrome-when-parent-has-border-radius-and-chil
+    transform: translate(0, 0);
+  }
+
+  &-light-primary-inner, &-dark-primary-inner {
+    color: @nui-primary;
+  }
+
+  &-light-accent-inner, &-dark-accent-inner {
+    color: @nui-accent;
+  }
+
+  &-light-inner {
+    color: @nui-light-icon;
+  }
+
+  &-dark-inner {
+    color: @nui-dark-icon;
+  }
+
+  &-disabled-inner {
+    color: @nui-light-hint;
+  }
+}

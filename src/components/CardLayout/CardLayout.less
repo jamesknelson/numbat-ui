@@ -1,0 +1,28 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-CardLayout {
+  position: relative;
+  padding-top: @nui-increment-size;
+
+  &-actions {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    width: 100%;
+  }
+
+  &-scrollbox {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    top: @nui-increment-size;
+  }
+
+  &-scollbox-inner {
+    background-color: @nui-canvas-paper;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    margin-top: -@nui-increment-size;
+  }
+}
