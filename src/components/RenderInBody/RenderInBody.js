@@ -23,12 +23,12 @@ export default class RenderInBody extends Base {
 
 
   _renderLayer() {
-    return ReactDOM.render(this.props.children, this.popup)
+    ReactDOM.render(this.props.children, this.popup)
   }
 
 
   render() {
     // Render a placeholder
-    return <div {...this.baseProps()} />
+    return <div {...this.baseProps({omitKnownPropTypes: true})} />
   }
 }

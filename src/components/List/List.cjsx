@@ -128,7 +128,7 @@ List.Cell = createNUIClass "ListCell",
       when @props.defaultVerticalAlign is "center" then "center"
       when @props.defaultVerticalAlign is "stretch" then "stretch"
 
-    className = @componentClasses "vertical-align-#{verticalAlign}",
+    className = @componentClasses `vertical-align-${verticalAlign}`,
       'stretch-width': @props.width == "stretch"
       'secondary': @props.secondary
 

@@ -69,7 +69,8 @@ export default class IconButton extends Base {
     // same across all rounded buttons. It is passed an `isKeyboardFocussed`
     // option by the button's RippleControl element.
     const contentFactory = (options, children) => {
-      const className = this.c("#{this.props.type}-inner", {
+      const className = this.c({
+        [`${this.props.type}-inner`]: true,
         'inner': true,
         'disabled-inner': this.props.disabled,
         'focused-inner': options.isKeyboardFocused,

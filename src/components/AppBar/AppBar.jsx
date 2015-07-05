@@ -20,7 +20,7 @@ export default class AppBar extends Base {
     if (this.props.overhang === true)
       classes = "overhang"
     else if (this.props.overhang)
-      classes = "overhang-#{this.props.overhang}"
+      classes = `overhang-${this.props.overhang}`
     else
       classes = "no-overhang"
 
