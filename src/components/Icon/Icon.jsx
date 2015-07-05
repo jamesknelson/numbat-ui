@@ -11,10 +11,10 @@ export default class Icon extends Base {
 
   render() {
     return (this.props.type.length === 1
-      ? <span {...this.baseProps({classes: "letter", omitKnownPropTypes: true})}>
+      ? <span {...this.baseProps({classes: "letter"})}>
           {this.props.type}
         </span>
-      : <span {...this.baseProps({classes: this.props.type, omitKnownPropTypes: true})} />
+      : <span {...this.baseProps({classes: this.props.type})} />
     )
   }
 }

@@ -52,7 +52,7 @@ export class MenuItem extends Base {
     }
 
     return (
-      <RippleControl {...this.baseProps({classes: 'ripple', omitKnownPropTypes: true})}
+      <RippleControl {...this.baseProps({classes: 'ripple'})}
         type="highlight"
         targetFactory={DOM.div}
         contentFactory={contentFactory}
@@ -64,10 +64,10 @@ export class MenuItem extends Base {
 
 class MenuPopup extends Base {
   static propTypes = {
-    onSelectItem: React.PropTypes.func.isRequired,
-    open: React.PropTypes.bool.isRequired,
-    side: React.PropTypes.oneOf(["left", "right"]),
-    children: React.PropTypes.node.isRequired,
+    onSelectItem: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    side: PropTypes.oneOf(["left", "right"]),
+    children: PropTypes.node.isRequired,
   }
 
   static defaultProps = {
@@ -75,7 +75,7 @@ class MenuPopup extends Base {
   }
 
   static childContextTypes = {
-    onSelectItem: React.PropTypes.func.isRequired,
+    onSelectItem: PropTypes.func.isRequired,
   }
 
 
@@ -167,7 +167,7 @@ class MenuPopup extends Base {
 
   render() {
     return (
-      <Paper {...this.baseProps({classes: {closed: !this.props.open}, omitKnownPropTypes: true})}>
+      <Paper {...this.baseProps({classes: {closed: !this.props.open}})}>
         <div ref="inner" className={this.c("inner")}>
           {this.props.children}
         </div>
@@ -216,7 +216,7 @@ export default class Menu extends Base {
   render() {
     const menuPopup = this.state.rect
       ? <MenuPopup {...this.props} rect={this.state.rect} />
-      : React.DOM.div()
+      : DOM.div()
 
     return (
       <RenderInBody className={this.baseClasses()}>

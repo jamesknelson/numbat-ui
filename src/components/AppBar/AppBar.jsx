@@ -36,7 +36,7 @@ export default class AppBar extends Base {
       />
 
     return (
-      <Paper shape='square' {...this.baseProps({classes, omitKnownPropTypes: true})}>
+      <Paper shape='square' {...this.baseProps({classes})}>
         <div className={this.c("inner")}>
           {menuButton}
           {title}

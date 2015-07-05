@@ -34,7 +34,7 @@ export default class FlatButton extends Base {
     )
 
     return (
-      <RippleControl {...this.baseProps({omitKnownPropTypes: true})}
+      <RippleControl {...this.baseProps()}
         type={RippleControlTypeMap[this.props.type]}
         targetFactory={targetFactory}
         contentFactory={labeledButtonContentFactory.bind(this)}

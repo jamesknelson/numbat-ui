@@ -22,7 +22,7 @@ export default class Paper extends Base {
     }
 
     return (
-      <div {...this.baseProps({classes, omitKnownPropTypes: true})}>
+      <div {...this.baseProps({classes})}>
         <div className={this.c("inner")}>
           {this.props.children}
         </div>

@@ -22,7 +22,7 @@ export default class Tooltip extends Base {
 
   render() {
     return (
-      <div {...this.baseProps({omitKnownPropTypes: true})}>
+      <div {...this.baseProps()}>
         <div ref="inner" className={this.c('inner', {'is-shown': this.props.show})}>
           <div ref="ripple" className={this.c("ripple")} />
           <span className={this.c("label")}>{this.props.label}</span>

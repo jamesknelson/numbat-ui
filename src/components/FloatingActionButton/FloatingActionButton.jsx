@@ -84,7 +84,7 @@ export default class FloatingActionButton extends Base {
     }
 
     return (
-      <RippleControl {...this.baseProps({omitKnownPropTypes: true})}
+      <RippleControl {...this.baseProps()}
         type={this.props.type}
         targetFactory={targetFactory}
         contentFactory={contentFactory}

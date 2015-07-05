@@ -29,6 +29,6 @@ export default class RenderInBody extends Base {
 
   render() {
     // Render a placeholder
-    return <div {...this.baseProps({omitKnownPropTypes: true})} />
+    return <div {...this.baseProps()} />
   }
 }

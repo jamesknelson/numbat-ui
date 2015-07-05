@@ -11,13 +11,13 @@ import Menu from '../Menu/Menu'
 
 export default class IconMenu extends Base {
   static propTypes = {
-    iconType: React.PropTypes.string.isRequired,
-    type: React.PropTypes.string,
-    side: React.PropTypes.string,
-    tooltip: React.PropTypes.string,
-    onSelectItem: React.PropTypes.func.isRequired,
-    children: React.PropTypes.node.isRequired,
-    tabIndex: React.PropTypes.number,
+    iconType: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    side: PropTypes.string,
+    tooltip: PropTypes.string,
+    onSelectItem: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
+    tabIndex: PropTypes.number,
   }
 
 
@@ -66,8 +66,7 @@ export default class IconMenu extends Base {
   render() {
     return (
       <div className={this.baseClasses()}>
-        <IconButton
-          {...this.baseProps({classes: false})}
+        <IconButton {...this.baseProps({classes: false})}
           className={this.c("icon")} 
           onClick={this.onButtonClick}
           iconType={this.props.iconType}

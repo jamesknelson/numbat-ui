@@ -24,7 +24,7 @@ class RippleCircle extends Base {
     }
 
     return (
-      <div {...this.baseProps({classes, omitKnownPropTypes: true})}>
+      <div {...this.baseProps({classes})}>
         <div className={this.c("inner")} />
       </div>
     )
@@ -63,7 +63,7 @@ export default class TouchRipple extends Base {
     // but the ripples should only be visible inside the botton, so return a
     // wrapper, but pass out ripples through a factory to the caller.
     return (
-      <Target {...this.baseProps({omitKnownPropTypes: true})}
+      <Target {...this.baseProps()}
         on={this.start}
         off={this.end}>
         {this.props.factory(null, ripples)}

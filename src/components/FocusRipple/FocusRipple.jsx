@@ -23,7 +23,7 @@ export default class FocusRipple extends Base {
     }
 
     return (
-      <div {...this.baseProps({classes, omitKnownPropTypes: true})}>
+      <div {...this.baseProps({classes})}>
         <div className={this.c("inner")} />
       </div>
     )

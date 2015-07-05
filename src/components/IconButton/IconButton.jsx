@@ -46,12 +46,16 @@ export default class IconButton extends Base {
     }
   }
 
-
-  @Base.on('blur', 'mouseLeave')
+  @Base.on('blur')
   hideTooltip() {
+    this.setState({tooltipShown: false})
+  }
+
+  @Base.on('mouseLeave')
+  hideTooltipUnlessFocussed() {
     if (!this.refs.rippleControl.keyboardFocused) {
       this.setState({tooltipShown: false})
-    }
+    } 
   }
 
 
@@ -93,7 +97,7 @@ export default class IconButton extends Base {
     )
 
     return (
-      <RippleControl {...this.baseProps({omitKnownPropTypes: true})}
+      <RippleControl {...this.baseProps()}
         ref="rippleControl"
         type={RippleControlTypeMap[this.props.type]}
         targetFactory={targetFactory}

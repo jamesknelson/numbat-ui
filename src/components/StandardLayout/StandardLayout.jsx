@@ -84,7 +84,7 @@ export default class StandardLayout extends Base {
     }
 
     return (
-      <div {...this.baseProps({classes, omitKnownPropTypes: true})}>
+      <div {...this.baseProps({classes})}>
         <div className={this.c("menu")}>{this.props.menu}</div>
         <CSSTransitionGroup
           transitionName={this.c("navigation")}

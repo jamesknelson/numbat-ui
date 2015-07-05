@@ -58,7 +58,7 @@ export default class Base extends Component {
   }
 
 
-  baseProps({classes = {}, omitKnownPropTypes = false} = {}) {
+  baseProps({classes = {}, omitKnownPropTypes = true} = {}) {
     const passProps = omitKnownPropTypes
       ? except(this.props, Object.keys(this.constructor.propTypes || {}).concat('children'))
       : Object.assign({}, this.props)
@@ -84,7 +84,7 @@ export default class Base extends Component {
 
 
   render() {
-    return <div {...this.baseProps({omitKnownPropTypes: true})}>{this.props.children}</div>
+    return <div {...this.baseProps()}>{this.props.children}</div>
   }
 }
 

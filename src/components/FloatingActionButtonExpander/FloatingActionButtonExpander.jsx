@@ -68,7 +68,7 @@ export default class FloatingActionButtonExpander extends Base {
     )
 
     return (
-      <div {...this.baseProps({classes: {open: this.state.open}, omitKnownPropTypes: true})}>
+      <div {...this.baseProps({classes: {open: this.state.open}})}>
         <FloatingActionButton
           className={this.c("toggle")}
           type={this.props.type}

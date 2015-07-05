@@ -67,7 +67,7 @@ export default class RippleControl extends Base {
 
   render() {
     const targetProps = Object.assign(
-      this.baseProps({classes: false, omitKnownPropTypes: true}),
+      this.baseProps({classes: false}),
       {disabled: this.props.disabled}
     )
 

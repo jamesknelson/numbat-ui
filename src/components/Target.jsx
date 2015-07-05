@@ -27,7 +27,7 @@ export default class Target extends Base {
 
   render() {
     return (
-      <div {...this.baseProps({omitKnownPropTypes: true})}>
+      <div {...this.baseProps()}>
         {this.props.children}
       </div>
     )
