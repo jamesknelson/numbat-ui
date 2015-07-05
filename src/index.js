@@ -8,7 +8,6 @@
 //   # DropDownMenu: mui.DropDownMenu
 //   FloatingActionButton: require("./src/components/FloatingActionButton/FloatingActionButton")
 //   FloatingActionButtonExpander: require("./src/components/FloatingActionButtonExpander/FloatingActionButtonExpander")
-//   Icon: require("./src/components/Icon/Icon")
 //   IconButton: require("./src/components/IconButton/IconButton")
 //   IconMenu: require("./src/components/IconMenu/IconMenu")
 //   # Input: mui.Input
@@ -32,14 +31,21 @@
 //   # ToolbarGroup: mui.ToolbarGroup
 //   Tooltip: require("./src/components/Tooltip/Tooltip")
 
-export { default as Base } from './components/Base';
-export { default as Target } from './components/Target';
-export { default as AppCanvas } from './components/AppCanvas/AppCanvas';
-export { default as FlatButton } from './components/FlatButton/FlatButton';
-export { default as Paper } from './components/Paper/Paper';
-export { default as RaisedButton } from './components/RaisedButton/RaisedButton';
-export { default as RippleControl } from './components/RippleControl/RippleControl';
-export { default as StandardLayout } from './components/StandardLayout/StandardLayout';
+export { default as Base } from './components/Base'
+export { default as Target } from './components/Target'
+
+export { default as AppBar } from './components/AppBar/AppBar'
+export { default as AppCanvas } from './components/AppCanvas/AppCanvas'
+export { default as FlatButton } from './components/FlatButton/FlatButton'
+export { default as FloatingActionButton } from './components/FloatingActionButton/FloatingActionButton'
+export { default as FloatingActionButtonExpander } from './components/FloatingActionButtonExpander/FloatingActionButtonExpander'
+export { default as Icon } from './components/Icon/Icon'
+export { default as IconButton } from './components/IconButton/IconButton'
+export { default as Paper } from './components/Paper/Paper'
+export { default as RaisedButton } from './components/RaisedButton/RaisedButton'
+export { default as RippleControl } from './components/RippleControl/RippleControl'
+export { default as StandardLayout } from './components/StandardLayout/StandardLayout'
+export { default as Tooltip } from './components/Tooltip/Tooltip'
 
 export const Util = {
   MediaQueries: require('./util/MediaQueries')

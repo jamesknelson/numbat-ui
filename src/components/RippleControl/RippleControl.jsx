@@ -30,6 +30,11 @@ export default class RippleControl extends Base {
   }
 
 
+  get keyboardFocused() {
+    return this.state.isKeyboardFocused
+  }
+
+
   @Base.on('mouseDown', 'blur')
   resetKeyboardFocus() {
     this.setState({isKeyboardFocused: false})
