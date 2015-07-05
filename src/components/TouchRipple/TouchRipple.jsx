@@ -1,6 +1,7 @@
 import './TouchRipple.less'
 import React, {PropTypes} from "react"
-import DOMUtil from "../../util/DOMUtil"
+import ReactDOM from "react-dom"
+import {offset as DOMOffset} from "../../util/DOMUtil"
 import {bound} from "../../util/decorators"
 import {delay} from "../../util/functions"
 import Base from "../Base"
@@ -76,9 +77,10 @@ export default class TouchRipple extends Base {
     const ripples = this.state.ripples
     const nextKey = ripples[ripples.length-1].key + 1
     const nextRipple = ripples.find(r => !r.started)
+    const el = ReactDOM.findDOMNode(this)
 
     nextRipple.started = true
-    nextRipple.style = this.props.centerRipple ? rippleStyle(this.getDOMNode(), e) : {}
+    nextRipple.style = this.props.centerRipple ? {} : rippleStyle(el, e)
 
     // Add an unstarted ripple at the end
     ripples.push({
@@ -121,7 +123,7 @@ export default class TouchRipple extends Base {
 function rippleStyle(el, e) {
   const elHeight = el.offsetHeight
   const elWidth = el.offsetWidth
-  const offset = DOMUtil.offset(el)
+  const offset = DOMOffset(el)
   const pageX = e.pageX == undefined ? e.nativeEvent.pageX : e.pageX
   const pageY = e.pageY == undefined ? e.nativeEvent.pageY : e.pageY
   const pointerX = pageX - offset.left

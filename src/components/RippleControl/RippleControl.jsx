@@ -32,6 +32,7 @@ export default class RippleControl extends Base {
 
   @Base.on('mouseDown', 'blur')
   resetKeyboardFocus() {
+    console.log('blur')
     this.setState({isKeyboardFocused: false})
   }
 
@@ -40,7 +41,11 @@ export default class RippleControl extends Base {
     // A delay is needed becuase the focus event fires first
     // Wait so that we can capture if this was a keyboard focus
     // or touch focus
-    delay(150, () => this._tabPressed && this.setState({isKeyboardFocused: true}))
+    delay(150, () => {
+      if (this._tabPressed) {
+        this.setState({isKeyboardFocused: true})
+      }
+    })
   }
 
 
@@ -55,8 +60,6 @@ export default class RippleControl extends Base {
   }
 
   onWindowKeyUp(e) {
-    this._tabPressed = false
-
     if (e.keyCode == KeyCode.SPACE && this.state.isKeyboardFocused) {
       this.resetKeyboardFocus()
     }
