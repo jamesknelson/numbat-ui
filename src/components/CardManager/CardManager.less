@@ -1,2 +1,39 @@
 @import (reference) '../../theme/theme.less';
 
+.nui-CardManager {
+  display: flex;
+  position: absolute !important;
+  top: @nui-app-bar-h;
+  bottom: 0;
+  width: 100%;
+
+  &-list {  
+    position: relative;
+    flex: 1 1 50%;
+    top: 0;
+    bottom: 0;
+    overflow: visible;
+    z-index: @nui-z-app-bar - 1;
+  }
+  
+  &-card {
+    position: relative;
+    flex: 1 1 50%;
+    z-index: @nui-z-app-bar + 1;
+  }
+
+  &-action {
+    flex: 0 0 (@nui-fab-size + @nui-margin-keyline*2);
+    position: relative;
+    padding: (@nui-app-bar-h - @nui-fab-size/2) @nui-margin-keyline 0 @nui-margin-keyline;
+    z-index: @nui-z-app-bar + 1;
+  }
+
+  &-card-layout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
