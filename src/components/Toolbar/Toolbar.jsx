@@ -1,5 +1,10 @@
-import React, {PropTypes} from "react"
-import Base from "../Base"
+import React, {Component, PropTypes} from "react"
+import {base} from "../../util/decorators"
 
 
-export default class Toolbar extends Base {}
+@base()
+export default class Toolbar extends Component {
+  render() {
+    return <div {...this.base()}>{this.props.children}</div>
+  }
+}

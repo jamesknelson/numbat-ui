@@ -1,27 +1,34 @@
 import './List.less'
-import React, {PropTypes, DOM} from "react"
-import Base from "../Base"
+import React, {Component, DOM, PropTypes} from "react"
+import {base, baseControl} from "../../util/decorators"
 import Icon from "../Icon/Icon"
 import IconButton from "../IconButton/IconButton"
 import IconMenu from "../IconMenu/IconMenu"
-import RippleControl from "../RippleControl/RippleControl"
+import SelectRipple from "../SelectRipple/SelectRipple"
 
 
-export default class List extends Base {}
+@base()
+export default class List extends Component {
+  render() {
+    return <div {...this.base()}>{this.props.children}</div>
+  }
+}
 
 
-export class ListDivider extends Base {
+@base()
+export class ListDivider extends Component {
   static propTypes = {
     type: PropTypes.oneOf(["no-keyline", "full"]).isRequired,
   }
 
   render() {
-    return <div {...this.baseProps({classes: this.props.type})} />
+    return <div {...this.base({classes: this.props.type})} />
   }
 }
 
 
-export class ListTile extends Base {
+@baseControl()
+export class ListTile extends Component {
   static propTypes = {
     borderType: PropTypes.oneOf(["no-keyline", "full"]),
     alignTop: PropTypes.bool,
@@ -50,46 +57,29 @@ export class ListTile extends Base {
 
 
   render() {
-    const contentFactory = (options, children) => {
-      const border = this.props.borderType &&
-        <div className={this.c("border-"+this.props.borderType)} />
-
-      const className = this.c("inner", {
-        'focused-inner': options.isKeyboardFocused
-      })
-
-      return (
-        <div className={className}>
-          {children}
-          {border}
-          <div className={this.c("cells")}>{this.props.children}</div>
-        </div>
-      )
-    }
-
-    const targetFactory = (options, children) => this.props.targetFactory(
-      // Note that all relevant style is removed from the passed in target.  
-      Object.assign(options, {className: this.c('container')}),
-      children
-    )
+    const border = this.props.borderType &&
+      <div className={this.c("border-"+this.props.borderType)} />
 
     const classes = {
-      ripple: true,
       bordered: this.props.borderType,
     }
 
     return (
-      <RippleControl {...this.baseProps({classes})}
-        type="highlight"
-        targetFactory={targetFactory}
-        contentFactory={contentFactory}
-      />
+      this.props.targetFactory(
+        this.base({classes}),
+        <div>
+          <SelectRipple type="highlight" control={this.control} />
+          {border}
+          <div className={this.c("cells")}>{this.props.children}</div>
+        </div>
+      )
     )
   }
 }
 
 
-export class ListIconGroupTile extends Base {
+@base()
+export class ListIconGroupTile extends Component {
   static propTypes = {
     firstInGroup: PropTypes.string,
   }
@@ -103,7 +93,7 @@ export class ListIconGroupTile extends Base {
     const borderType = this.props.firstInGroup && "no-keyline"
 
     return (
-      <ListTile {...this.baseProps()} borderType={borderType}>
+      <ListTile {...this.base()} borderType={borderType}>
         {groupCell}
         {this.props.children}
       </ListTile>
@@ -112,7 +102,8 @@ export class ListIconGroupTile extends Base {
 }
 
 
-export class ListCell extends Base {
+@base()
+export class ListCell extends Component {
   static propTypes = {
     defaultVerticalAlign: PropTypes.oneOf(["center", "stretch"]).isRequired,
     secondary: PropTypes.bool,
@@ -129,7 +120,7 @@ export class ListCell extends Base {
   }
 
 
-  @Base.on('click', 'mouseDown')
+  @base.on('click', 'mouseDown')
   cancelPrimaryAction(e) {
     // If this is a secondary action, we don't want to trigger the primary
     // action, so don't let the event bubble up to the tile handler.
@@ -156,7 +147,7 @@ export class ListCell extends Base {
     }
 
     return (
-      <div {...this.baseProps({classes})}>
+      <div {...this.base({classes})}>
         {this.props.children}
       </div>
     )
@@ -164,14 +155,16 @@ export class ListCell extends Base {
 }
 
 
-export class ListKeylineSpacer extends Base {
+@base()
+export class ListKeylineSpacer extends Component {
   render() {
-    return <ListCell {...this.baseProps()} />
+    return <ListCell {...this.base()} />
   }
 }
 
 
-export class ListAvatar extends Base {
+@base()
+export class ListAvatar extends Component {
   static propTypes = {
     placeholderIcon: PropTypes.string.isRequired,
     src: PropTypes.string,
@@ -180,7 +173,7 @@ export class ListAvatar extends Base {
 
   render() {
     return (
-      <ListCell className={this.baseClasses()}>
+      <ListCell className={this.cRoot()}>
         <Icon className={this.c("icon")} type={this.props.placeholderIcon} />
         <img {...this.props} className={this.c("img")} />
       </ListCell>
@@ -189,10 +182,11 @@ export class ListAvatar extends Base {
 }
 
 
-export class ListIcon extends Base {
+@base()
+export class ListIcon extends Component {
   render() {
     return (
-      <ListCell className={this.baseClasses()}>
+      <ListCell className={this.cRoot()}>
         <Icon {...this.props} className={this.c("icon")} />
       </ListCell>
     )
@@ -200,21 +194,23 @@ export class ListIcon extends Base {
 }
 
 
-export class ListIconMenu extends Base {
+@base()
+export class ListIconMenu extends Component {
   render() {
     return (
-      <ListCell className={this.baseClasses()} secondary={true}>  
+      <ListCell className={this.cRoot()} secondary={true}>
         <IconMenu {...this.props} className={this.c("control")} />
       </ListCell>
     )
   }
 }
- 
- 
-export class ListIconButton extends Base {
+
+
+@base()
+export class ListIconButton extends Component {
   render() {
     return (
-      <ListCell className={this.baseClasses()} secondary={true}>
+      <ListCell className={this.cRoot()} secondary={true}>
         <IconButton {...this.props} className={this.c("control")} />
       </ListCell>
     )
@@ -222,7 +218,8 @@ export class ListIconButton extends Base {
 }
 
 
-export class ListLabel extends Base {
+@base()
+export class ListLabel extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
   }
@@ -230,7 +227,7 @@ export class ListLabel extends Base {
 
   render() {
     return (
-      <ListCell {...this.baseProps({classes: 'single'})}
+      <ListCell {...this.base({classes: 'single'})}
         type="single"
         width="stretch"
       >
@@ -241,7 +238,8 @@ export class ListLabel extends Base {
 }
 
 
-export class ListLabeledText extends Base {
+@base()
+export class ListLabeledText extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.string,
@@ -255,7 +253,7 @@ export class ListLabeledText extends Base {
 
   render() {
     return (
-      <ListCell {...this.baseProps({classes: this.props.type})}
+      <ListCell {...this.base({classes: this.props.type})}
         type={this.props.type}
         width="stretch"
       >

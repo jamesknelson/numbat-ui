@@ -48,12 +48,11 @@
 }
 
 .nui-ListTile {
-  display: block !important;
-  width: 100%;
+  .nui-target-reset();
 
-  &-container {
-    .nui-target-reset();
-  }
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 
   &-bordered + & {
     margin-top: -1px;

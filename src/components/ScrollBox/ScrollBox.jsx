@@ -1,10 +1,11 @@
-import React, {PropTypes} from "react"
+import React, {Component, PropTypes} from "react"
 import ReactDOM from "react-dom"
 import IScroll from '../../vendor/iscroll'
-import Base from "../Base"
+import {base} from "../../util/decorators"
 
 
-export default class ScrollBox extends Base {
+@base()
+export default class ScrollBox extends Component {
   componentDidMount() {
     const el = ReactDOM.findDOMNode(this)
 
@@ -28,7 +29,7 @@ export default class ScrollBox extends Base {
 
   render() {
     return (
-      <div {...this.baseProps()}>
+      <div {...this.base()}>
         {this.props.children}
       </div>
     )

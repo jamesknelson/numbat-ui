@@ -1,6 +1,6 @@
 import './NavMenu.less'
-import React, {PropTypes} from "react"
-import Base from "../Base"
+import React, {Component, PropTypes} from "react"
+import {base} from "../../util/decorators"
 import Paper from "../Paper/Paper"
 import List, 
        {ListDivider,
@@ -9,7 +9,8 @@ import List,
         ListTile} from "../List/List"
 
 
-export class NavMenuItem extends Base {
+@base()
+export class NavMenuItem extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
     iconType: PropTypes.string.isRequired,
@@ -24,7 +25,7 @@ export class NavMenuItem extends Base {
     }
 
     return (
-      <ListTile {...this.baseProps({classes})}
+      <ListTile {...this.base({classes})}
         targetFactory={this.props.targetFactory} >
         <ListIcon
           className={this.c("icon", {selected: this.props.selected})}
@@ -38,14 +39,16 @@ export class NavMenuItem extends Base {
 }
 
 
-export class NavMenuDivider extends Base {
+@base()
+export class NavMenuDivider extends Component {
   render() {
-    return <ListDivider {...this.baseProps()} type="full" />
+    return <ListDivider {...this.base()} type="full" />
   }
 }
 
 
-export default class NavMenu extends Base {
+@base()
+export default class NavMenu extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
   }
@@ -53,7 +56,7 @@ export default class NavMenu extends Base {
   render() {
     return (
       <Paper
-        className={this.baseClasses()}
+        className={this.cRoot()}
         shape="square"
         zDepth={2}>
         <List {...this.props} className={this.c("list")} />
