@@ -1,14 +1,13 @@
 import './Menu.less'
-import React, {PropTypes, DOM} from "react"
-import ReactDOM from "react-dom"
-import Base from "../Base"
-import {bound} from '../../util/decorators'
+import React, {Component, DOM, PropTypes} from "react"
+import ReactDOM from 'react-dom'
+import RenderInBody from 'react-render-in-body'
+import {base, baseControl, bound} from '../../util/decorators'
 import {delay} from '../../util/functions'
 import {withoutTransition} from '../../util/DOMUtil'
 import {incrementalSize} from '../../util/KeyLine'
 import Paper from '../Paper/Paper'
-import RippleControl from '../RippleControl/RippleControl'
-import RenderInBody from '../RenderInBody/RenderInBody'
+import SelectRipple from "../SelectRipple/SelectRipple"
 
 
 // Google seems to use an 8px gutter regardless of device size. After playing
@@ -16,10 +15,16 @@ import RenderInBody from '../RenderInBody/RenderInBody'
 const GUTTER = 8
 
 
-export class MenuDivider extends Base {}
+@base()
+export class MenuDivider extends Component {
+  render() {
+    return <div {...this.base()} />
+  }
+}
 
 
-export class MenuItem extends Base {
+@baseControl()
+export class MenuItem extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
     value: PropTypes.any.isRequired,
@@ -30,39 +35,24 @@ export class MenuItem extends Base {
   }
 
 
-  @Base.on('click')
-  select() {
+  controlPrimaryAction() {
     this.context.onSelectItem(this.props.value)
   }
 
 
   render() {
-    const contentFactory = (options, children) => {
-      const className = this.c({
-        'inner': true,
-        'focused-inner': options.isKeyboardFocused,
-      })
-
-      return (
-        <div className={className}>
-          {children}
-          <span className={this.c("label")}>{this.props.label}</span>
-        </div>
-      )
-    }
-
     return (
-      <RippleControl {...this.baseProps({classes: 'ripple'})}
-        type="highlight"
-        targetFactory={DOM.div}
-        contentFactory={contentFactory}
-      />
+      <div {...this.base()}>
+        <SelectRipple type="highlight" control={this.control} />
+        <span className={this.c("label")}>{this.props.label}</span>
+      </div>
     )
   }
 }
 
 
-class MenuPopup extends Base {
+@base()
+class MenuPopup extends Component {
   static propTypes = {
     onSelectItem: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
@@ -167,7 +157,7 @@ class MenuPopup extends Base {
 
   render() {
     return (
-      <Paper {...this.baseProps({classes: {closed: !this.props.open}})}>
+      <Paper {...this.base({classes: {closed: !this.props.open}})}>
         <div ref="inner" className={this.c("inner")}>
           {this.props.children}
         </div>
@@ -177,7 +167,8 @@ class MenuPopup extends Base {
 }
 
 
-export default class Menu extends Base {
+@base()
+export default class Menu extends Component {
   static propTypes = {
     open: PropTypes.bool.isRequired,
   }
@@ -219,7 +210,7 @@ export default class Menu extends Base {
       : DOM.div()
 
     return (
-      <RenderInBody className={this.baseClasses()}>
+      <RenderInBody className={this.cRoot()}>
         <div
           className={this.c({overlay: this.props.open})}
           onScroll={this.cancelEventIfOpen}

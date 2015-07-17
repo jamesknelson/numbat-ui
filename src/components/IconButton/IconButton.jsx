@@ -20,6 +20,7 @@ const RippleControlTypeMap = {
 @baseControl()
 export default class IconButton extends Component {
   static propTypes = {
+    onPress: PropTypes.func.isRequired,
     iconType: PropTypes.string.isRequired,
     targetFactory: PropTypes.func,
     tooltip: PropTypes.string,
@@ -32,6 +33,11 @@ export default class IconButton extends Component {
   static defaultProps = {
     targetFactory: DOM.button,
     type: "light",
+  }
+
+
+  controlPrimaryAction() {
+    this.props.onPress()
   }
 
 

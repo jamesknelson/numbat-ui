@@ -20,8 +20,8 @@ const LabeledButtonContentTypeMap = {
 @baseControl()
 export default class RaisedButton extends Component {
   static propTypes = {
-    label: PropTypes.string,
     onPress: PropTypes.func.isRequired,
+    label: PropTypes.string,
     shape: PropTypes.string,
     targetFactory: PropTypes.func,
     type: PropTypes.oneOf(['primary', 'accent', 'default']),

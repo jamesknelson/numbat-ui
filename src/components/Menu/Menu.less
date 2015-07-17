@@ -41,25 +41,18 @@ div.nui-MenuPopup {
 .nui-MenuItem {
   .nui-type-subhead-1();
 
+  &:hover {
+    background-color: @nui-highlight-hover;
+  }
+
   margin: 0;
-  padding: 0;
-
-  &-inner {
-    padding: 0 @nui-menu-inner-padding-w;
-    line-height: @nui-menu-item-h;
-
-    &:hover {
-      background-color: @nui-highlight-hover;
-    }
-  }
-
-  &-ripple {
-    display: block !important;
-  }
-
+  padding: 0 @nui-menu-inner-padding-w;
+  line-height: @nui-menu-item-h;
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
 }
 
 .nui-MenuDivider {

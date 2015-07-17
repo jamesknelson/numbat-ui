@@ -1,15 +1,15 @@
 import './IconMenu.less'
-import React, {PropTypes} from "react"
+import React, {Component, PropTypes} from "react"
 import ReactDOM from "react-dom"
-import Base from "../Base"
-import {bound} from "../../util/decorators"
+import {base, bound} from "../../util/decorators"
 import {delay} from "../../util/functions"
 import {isDescendant} from '../../util/DOMUtil'
 import IconButton from '../IconButton/IconButton'
 import Menu from '../Menu/Menu'
 
 
-export default class IconMenu extends Base {
+@base()
+export default class IconMenu extends Component {
   static propTypes = {
     iconType: PropTypes.string.isRequired,
     type: PropTypes.string,
@@ -28,7 +28,7 @@ export default class IconMenu extends Base {
 
 
   // When the component mounts, listen to click events and check if we need to
-  // Call the componentClickAway function.
+  // Call the handleDocumentClick function.
   componentDidMount() {
     document.addEventListener('click', this.handleDocumentClick)
   }
@@ -58,17 +58,17 @@ export default class IconMenu extends Base {
 
 
   @bound
-  onButtonClick() {
+  onPress() {
     delay(50, () => this.setState({open: !this.state.open}))
   }
 
 
   render() {
     return (
-      <div className={this.baseClasses()}>
-        <IconButton {...this.baseProps({classes: false})}
+      <div className={this.cRoot()}>
+        <IconButton {...this.base({classes: false})}
           className={this.c("icon")} 
-          onClick={this.onButtonClick}
+          onPress={this.onPress}
           iconType={this.props.iconType}
           tooltip={this.props.tooltip}
           type={this.props.type}
