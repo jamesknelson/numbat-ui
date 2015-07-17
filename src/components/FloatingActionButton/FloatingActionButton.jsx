@@ -37,9 +37,9 @@ export default class FloatingActionButton extends Component {
 
 
   render() {
-    let zIndex = 1
+    let zIndex = 2
     if (this.control.disabled) zIndex = 0
-    else if (this.control.acting) zIndex = 2
+    else if (this.control.acting) zIndex = 3
 
     const rippleType = RippleTypeMap[this.props.type]
 
