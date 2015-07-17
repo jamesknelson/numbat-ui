@@ -1,16 +1,24 @@
 import './FloatingActionButton.less'
-import React, {PropTypes, DOM} from "react"
-import {bound} from "../../util/decorators"
-import Base from "../Base"
-import Target from "../Target"
+import React, {Component, DOM, PropTypes} from "react"
+import {baseControl} from "../../util/decorators"
 import Icon from '../Icon/Icon'
 import Paper from '../Paper/Paper'
-import RippleControl from "../RippleControl/RippleControl"
+import SelectRipple from "../SelectRipple/SelectRipple"
+import BeaconRipple from "../BeaconRipple/BeaconRipple"
 
 
-export default class FloatingActionButton extends Base {
+const RippleTypeMap = {
+  default: "highlight",
+  accent: "accent",
+  primary: "primary",
+}
+
+
+@baseControl()
+export default class FloatingActionButton extends Component {
   static propTypes = {
     iconType: PropTypes.string.isRequired,
+    onPress: PropTypes.func.isRequired,
     size: PropTypes.oneOf(['default', 'mini']),
     targetFactory: PropTypes.func,
     type: PropTypes.oneOf(['primary', 'accent']),
@@ -23,73 +31,41 @@ export default class FloatingActionButton extends Base {
   }
 
 
-  constructor(props) {
-    super(props)
-    this.state = {touched: false}
-  }
-
-
-  @bound
-  setTouched() {
-    this.setState({touched: true})
-  }
-
-  @bound
-  unsetTouched() {
-    this.setState({touched: false})
+  controlPrimaryAction() {
+    this.props.onPress()
   }
 
 
   render() {
-    // The content factory which produces the button content's structure is the
-    // same across all rounded buttons. It is passed an `isKeyboardFocussed`
-    // option by the button's RippleControl element.
-    const contentFactory = (options, children) => {
-      const className = this.c({
-        'inner': true,
-        [`${this.props.type}-inner`]: true,
-        'mini-inner': this.props.size == "mini",
-        'disabled-inner': this.props.disabled,
-        'focused-inner': options.isKeyboardFocused,
-      })
+    let zIndex = 1
+    if (this.control.disabled) zIndex = 0
+    else if (this.control.acting) zIndex = 2
 
-      return (
-        <div className={className}>
-          {children}
-          <Icon type={this.props.iconType} />
-        </div>
-      )
-    }
+    const rippleType = RippleTypeMap[this.props.type]
 
-    // The target factory produces content which should be outside of the
-    // displayed bounds, including padding, targets, etc. 
-    const targetFactory = (options, children) => {
-      let zIndex = 1
-      if (this.props.disabled) zIndex = 0
-      else if (this.state.touched) zIndex = 2
-
-      const classes = {
-        'container': true,
-        'mini-container': this.props.size == "mini",
-      }
-
-      const inner = this.props.targetFactory(
-        Object.assign(options, {className: this.c(classes)}),
-        <Paper zDepth={zIndex} shape="circle">{children}</Paper>
-      )
-
-      return (
-        <Target on={this.setTouched} off={this.unsetTouched}>{inner}</Target>
-      )
+    const classes = {
+      [`${this.props.type}-inner`]: true,
+      'inner': true,
+      'mini-inner': this.props.size == 'mini',
+      'disabled-inner': this.control.disabled,
+      'beacon-inner': this.control.beacon,
     }
 
     return (
-      <RippleControl {...this.baseProps()}
-        type={this.props.type}
-        targetFactory={targetFactory}
-        contentFactory={contentFactory}
-        centerRipple={true}
-      />
+      <div className={this.cRoot()}>
+        {
+          this.props.targetFactory(
+            Object.assign(this.passthrough(), {className: this.c("container")}, this.callbacks),
+            <Paper zDepth={zIndex} shape="circle">
+              <div className={this.c(classes)}>
+                <SelectRipple type={rippleType} control={this.control} />
+                <BeaconRipple type={rippleType} control={this.control} />
+                <Icon type={this.props.iconType} />
+              </div>
+            </Paper>
+          )
+        }
+      </div>
     )
   }
 }

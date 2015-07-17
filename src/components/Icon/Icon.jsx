@@ -1,9 +1,10 @@
 import './Icon.less'
-import React, {PropTypes} from 'react'
-import Base from '../Base'
+import React, {Component, PropTypes} from 'react'
+import {base} from "../../util/decorators"
 
 
-export default class Icon extends Base {
+@base()
+export default class Icon extends Component {
   static propTypes = {
     type: PropTypes.string,
   }
@@ -11,10 +12,10 @@ export default class Icon extends Base {
 
   render() {
     return (this.props.type.length === 1
-      ? <span {...this.baseProps({classes: "letter"})}>
+      ? <span {...this.base({classes: "letter"})}>
           {this.props.type}
         </span>
-      : <span {...this.baseProps({classes: this.props.type})} />
+      : <span {...this.base({classes: this.props.type})} />
     )
   }
 }
