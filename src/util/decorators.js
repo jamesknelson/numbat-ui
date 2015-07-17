@@ -4,16 +4,14 @@ import originalBaseControl from 'react-base-control'
 
 
 export function base(options) {
-  const base = originalBase("nui", options)
-  base.on = originalBase.on
-  return base
+  return originalBase("nui", options)
 }
+base.on = originalBase.on
 
 export function baseControl(options) {
-  const baseControl = originalBaseControl("nui", options)
-  baseControl.on = originalBaseControl.on
-  return baseControl
+  return originalBaseControl("nui", options)
 }
+baseControl.on = originalBaseControl.on
 
 export function bound(target, name, descriptor) {
   const { value } = descriptor

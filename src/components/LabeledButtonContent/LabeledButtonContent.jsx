@@ -24,7 +24,6 @@ export default class LabeledButtonContent extends Component {
       [`${this.props.type}-inner`]: true,
       'inner': true,
       'disabled-inner': this.props.control.disabled,
-      'beacon-inner': this.props.control.beacon,
     };
 
     return (

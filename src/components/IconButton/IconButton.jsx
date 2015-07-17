@@ -1,9 +1,10 @@
 import './IconButton.less'
 import React, {Component, PropTypes, DOM} from 'react'
-import Base from '../Base'
+import {baseControl} from '../../util/decorators'
 import Icon from '../Icon/Icon'
-import RippleControl from '../RippleControl/RippleControl'
 import Tooltip from '../Tooltip/Tooltip'
+import SelectRipple from '../SelectRipple/SelectRipple'
+import BeaconRipple from '../BeaconRipple/BeaconRipple'
 
 
 const RippleControlTypeMap = {
@@ -16,7 +17,7 @@ const RippleControlTypeMap = {
 }
 
 
-@control
+@baseControl()
 export default class IconButton extends Component {
   static propTypes = {
     iconType: PropTypes.string.isRequired,
@@ -34,78 +35,37 @@ export default class IconButton extends Component {
   }
 
 
-  constructor(props, on) {
-    super(props)
-
-    this.state = {tooltipShown: false}
-  }
-
-
-  @control.on('focus', 'mouseEnter')
-  showTooltip() {
-    if (!this.props.disabled) {
-      this.setState({tooltipShown: true})
-    }
-  }
-
-  @control.on('blur')
-  hideTooltip() {
-    this.setState({tooltipShown: false})
-  }
-
-  @control.on('mouseLeave')
-  hideTooltipUnlessFocussed() {
-    if (!this.refs.rippleControl.keyboardFocused) {
-      this.setState({tooltipShown: false})
-    } 
-  }
-
-
   render() {
+    const rippleType = RippleControlTypeMap[this.props.type]
+
     const tooltip = this.props.tooltip &&
       <Tooltip
         ref="tooltip"
         className={this.c("tooltip")}
         label={this.props.tooltip}
-        show={this.state.tooltipShown}
+        show={this.control.hover}
       />
 
-
-    // The content factory which produces the button content's structure is the
-    // same across all rounded buttons. It is passed an `isKeyboardFocussed`
-    // option by the button's RippleControl element.
-    const contentFactory = (options, children) => {
-      const className = this.c({
-        [`${this.props.type}-inner`]: true,
-        'inner': true,
-        'disabled-inner': this.props.disabled,
-        'focused-inner': options.isKeyboardFocused,
-      })
-
-      return (
-        <div className={className}>
-          {children}
-          <Icon type={this.props.iconType} />
-        </div>
-      )
+    const classes = {
+      [`${this.props.type}-inner`]: true,
+      'inner': true,
+      'disabled-inner': this.control.disabled,
     }
 
-    // The target factory produces content which should be outside of the
-    // displayed bounds, including padding, targets, etc. 
-    const targetFactory = (options, children) => this.props.targetFactory(
-      Object.assign(options, {className: this.c('container'), ref: "target"}),
-      children,
-      tooltip
-    )
-
     return (
-      <RippleControl {...this.baseProps()}
-        ref="rippleControl"
-        type={RippleControlTypeMap[this.props.type]}
-        targetFactory={targetFactory}
-        contentFactory={contentFactory}
-        centerRipple={true}
-      />
+      <div className={this.cRoot()}>
+        {
+          this.props.targetFactory(
+            Object.assign(this.passthrough(), {className: this.c("container")}, this.callbacks),
+            <div className={this.c(classes)}>
+              <SelectRipple type={rippleType} control={this.control} centerRipple={true} />
+              <BeaconRipple type={rippleType} control={this.control} />
+              <Icon type={this.props.iconType} />
+            </div>,
+            tooltip
+          )
+        }
+      </div>
     )
   }
 }

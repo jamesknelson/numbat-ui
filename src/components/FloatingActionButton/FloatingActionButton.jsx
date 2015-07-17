@@ -48,7 +48,6 @@ export default class FloatingActionButton extends Component {
       'inner': true,
       'mini-inner': this.props.size == 'mini',
       'disabled-inner': this.control.disabled,
-      'beacon-inner': this.control.beacon,
     }
 
     return (

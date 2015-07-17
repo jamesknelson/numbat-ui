@@ -1,12 +1,10 @@
 import './Tooltip.less'
-import React, {PropTypes} from 'react'
-import Base from '../Base'
+import React, {Component, PropTypes} from 'react'
+import {base} from "../../util/decorators"
 
 
-@baseCallbacks
-@baseClasses
-@base
-export default class Tooltip extends React.Component {
+@base()
+export default class Tooltip extends Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
     show: PropTypes.bool,
@@ -25,9 +23,9 @@ export default class Tooltip extends React.Component {
 
   render() {
     return (
-      <div {...this.baseProps()}>
+      <div {...this.base()}>
         <div ref="inner" className={this.c('inner', {'is-shown': this.props.show})}>
-          <div ref="ripple" className={this.c("ripple")} />
+          <div ref="ripple" className={this.c('ripple')} />
           <span className={this.c("label")}>{this.props.label}</span>
         </div>
       </div>

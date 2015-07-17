@@ -1,11 +1,11 @@
 import './FloatingActionButtonExpander.less'
-import React, {PropTypes, DOM} from "react"
-import {bound} from "../../util/decorators"
-import Base from "../Base"
+import React, {Component, DOM, PropTypes} from "react"
+import {base, bound} from "../../util/decorators"
 import FloatingActionButton from "../FloatingActionButton/FloatingActionButton"
 
 
-export default class FloatingActionButtonExpander extends Base {
+@base()
+export default class FloatingActionButtonExpander extends Component {
   static propTypes = {
     iconType: React.PropTypes.string.isRequired,
     type: React.PropTypes.oneOf(['primary', 'accent']),
@@ -26,9 +26,11 @@ export default class FloatingActionButtonExpander extends Base {
   @bound
   open() {
     this.setState({open: true})
-    window.addEventListener("keydown", this.close, true)
-    window.addEventListener("click", this.close, true)
-    window.addEventListener("touchend", this.close, true)
+    setTimeout(() => {
+      window.addEventListener("keydown", this.close, true)
+      window.addEventListener("click", this.close, true)
+      window.addEventListener("touchend", this.close, true)
+    })
   }
 
 
@@ -68,12 +70,13 @@ export default class FloatingActionButtonExpander extends Base {
     )
 
     return (
-      <div {...this.baseProps({classes: {open: this.state.open}})}>
+      <div className={this.cRoot({open: this.state.open})}>
         <FloatingActionButton
+          {...this.base({classes: false})}
           className={this.c("toggle")}
           type={this.props.type}
           iconType={this.props.iconType} 
-          onClick={this.toggleMenu}
+          onPress={this.toggleMenu}
         />
         <div className={this.c("expanded")}>
           {wrappedButtons}
