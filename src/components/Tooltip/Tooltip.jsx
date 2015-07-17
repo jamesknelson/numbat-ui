@@ -3,7 +3,10 @@ import React, {PropTypes} from 'react'
 import Base from '../Base'
 
 
-export default class Tooltip extends Base {
+@baseCallbacks
+@baseClasses
+@base
+export default class Tooltip extends React.Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
     show: PropTypes.bool,

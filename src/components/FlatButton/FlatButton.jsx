@@ -1,44 +1,51 @@
 import './FlatButton.less'
-import React, {PropTypes, DOM} from "react"
-import labeledButtonContentFactory from "../../util/labeledButtonContentFactory"
-import Base from "../Base"
-import RippleControl from "../RippleControl/RippleControl"
+import React, {Component, DOM, PropTypes} from "react"
+import {baseControl} from "../../util/decorators"
+import LabeledButtonContent from "../LabeledButtonContent/LabeledButtonContent"
 
 
-const RippleControlTypeMap = {
+const RippleTypeMap = {
   default: "highlight",
   accent: "highlight-accent",
   primary: "highlight-primary",
 }
 
 
-export default class FlatButton extends Base {
+@baseControl()
+export default class FlatButton extends Component {
   static propTypes = {
-    type: PropTypes.oneOf(['primary', 'accent', 'default']),
+    label: PropTypes.string,
+    onPress: PropTypes.func.isRequired,
     targetFactory: PropTypes.func,
+    type: PropTypes.oneOf(['primary', 'accent', 'default']),
   }
 
   static defaultProps = {
+    targetFactory: DOM.a,
     type: "default",
-    targetFactory: DOM.button,
+  }
+
+
+  controlPrimaryAction() {
+    this.props.onPress()
   }
 
 
   render() {
-    // The target factory produces content which should be outside of the
-    // displayed bounds, including padding, targets, etc.
-    // Note that all relevant style is removed from the passed in target.
-    const targetFactory = (options, children) => this.props.targetFactory(
-      Object.assign(options, {className: this.c('container')}),
-      children
-    )
-
     return (
-      <RippleControl {...this.baseProps()}
-        type={RippleControlTypeMap[this.props.type]}
-        targetFactory={targetFactory}
-        contentFactory={labeledButtonContentFactory.bind(this)}
-      />
+      <div className={this.cRoot()}>
+        {
+          this.props.targetFactory(
+            Object.assign(this.passthrough(), {className: this.c("container")}, this.callbacks),
+            <LabeledButtonContent
+              control={this.control}
+              label={this.props.label || this.props.children}
+              type={this.props.type}
+              rippleType={RippleTypeMap[this.props.type]}
+            />
+          )
+        }
+      </div>
     )
   }
 }

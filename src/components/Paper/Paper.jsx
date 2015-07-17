@@ -1,9 +1,10 @@
 import './Paper.less'
-import React, {PropTypes} from "react"
-import Base from "../Base"
+import React, {Component, PropTypes} from "react"
+import {base} from "../../util/decorators"
 
 
-export default class Paper extends Base {
+@base()
+export default class Paper extends Component {
   static propTypes = {
     shape: PropTypes.oneOf(["rounded", "square", "circle"]),
     zDepth: PropTypes.oneOf([0,1,2,3,4,5]),
@@ -22,7 +23,7 @@ export default class Paper extends Base {
     }
 
     return (
-      <div {...this.baseProps({classes})}>
+      <div {...this.base({classes})}>
         <div className={this.c("inner")}>
           {this.props.children}
         </div>

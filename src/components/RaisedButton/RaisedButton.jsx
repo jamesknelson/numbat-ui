@@ -1,76 +1,64 @@
 import './RaisedButton.less'
-import React, {PropTypes, DOM} from "react"
-import {bound} from "../../util/decorators"
-import labeledButtonContentFactory from "../../util/labeledButtonContentFactory"
-import Base from "../Base"
-import Target from "../Target"
+import React, {Component, DOM, PropTypes} from "react"
+import {baseControl} from "../../util/decorators"
 import Paper from "../Paper/Paper"
-import RippleControl from "../RippleControl/RippleControl"
+import LabeledButtonContent from "../LabeledButtonContent/LabeledButtonContent"
 
 
-const RippleControlTypeMap = {
+const RippleTypeMap = {
   default: "highlight",
   accent: "accent",
   primary: "primary",
 }
+const LabeledButtonContentTypeMap = {
+  default: "transparent",
+  accent: "accent-solid",
+  primary: "primary-solid",
+}
 
 
-export default class RaisedButton extends Base {
+@baseControl()
+export default class RaisedButton extends Component {
   static propTypes = {
+    label: PropTypes.string,
+    onPress: PropTypes.func.isRequired,
+    shape: PropTypes.string,
     targetFactory: PropTypes.func,
     type: PropTypes.oneOf(['primary', 'accent', 'default']),
-    shape: PropTypes.string,
-    label: PropTypes.string,
   }
 
   static defaultProps = {
-    type: "default",
     targetFactory: DOM.a,
+    type: "default",
   }
 
 
-  constructor(props) {
-    super(props)
-    this.state = {touched: false}
+  controlPrimaryAction() {
+    this.props.onPress()
   }
 
-
-  @bound
-  setTouched() {
-    this.setState({touched: true})
-  }
-
-
-  @bound
-  unsetTouched() {
-    this.setState({touched: false})
-  }
-   
 
   render() {
-    // The target factory produces content which should be outside of the
-    // displayed bounds, including padding, targets, etc. 
-    const targetFactory = (options, children) => {
-      let zIndex = 1
-      if (this.props.disabled) zIndex = 0
-      else if (this.state.touched) zIndex = 2
-
-      const inner = this.props.targetFactory(
-        Object.assign(options, {className: this.c('container')}),
-        <Paper zDepth={zIndex}>{children}</Paper>
-      )
-
-      return (
-        <Target on={this.setTouched} off={this.unsetTouched}>{inner}</Target>
-      )
-    }
+    let zIndex = 1
+    if (this.control.disabled) zIndex = 0
+    else if (this.control.acting) zIndex = 2
 
     return (
-      <RippleControl {...this.baseProps()}
-        type={RippleControlTypeMap[this.props.type]}
-        targetFactory={targetFactory}
-        contentFactory={labeledButtonContentFactory.bind(this)}
-      />
+      <div className={this.cRoot()}>
+        {
+          this.props.targetFactory(
+            Object.assign(this.passthrough(), {className: this.c("container")}, this.callbacks),
+            <Paper zDepth={zIndex} shape={this.props.shape}>
+              <LabeledButtonContent
+                control={this.control}
+                label={this.props.label || this.props.children}
+                type={LabeledButtonContentTypeMap[this.props.type]}
+                rippleType={RippleTypeMap[this.props.type]}
+              />
+            </Paper>
+          )
+        }
+      </div>
     )
   }
 }

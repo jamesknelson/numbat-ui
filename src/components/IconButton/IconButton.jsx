@@ -1,5 +1,5 @@
 import './IconButton.less'
-import React, {PropTypes, DOM} from 'react'
+import React, {Component, PropTypes, DOM} from 'react'
 import Base from '../Base'
 import Icon from '../Icon/Icon'
 import RippleControl from '../RippleControl/RippleControl'
@@ -16,7 +16,8 @@ const RippleControlTypeMap = {
 }
 
 
-export default class IconButton extends Base {
+@control
+export default class IconButton extends Component {
   static propTypes = {
     iconType: PropTypes.string.isRequired,
     targetFactory: PropTypes.func,
@@ -33,25 +34,26 @@ export default class IconButton extends Base {
   }
 
 
-  constructor(props) {
+  constructor(props, on) {
     super(props)
+
     this.state = {tooltipShown: false}
   }
 
 
-  @Base.on('focus', 'mouseEnter')
+  @control.on('focus', 'mouseEnter')
   showTooltip() {
     if (!this.props.disabled) {
       this.setState({tooltipShown: true})
     }
   }
 
-  @Base.on('blur')
+  @control.on('blur')
   hideTooltip() {
     this.setState({tooltipShown: false})
   }
 
-  @Base.on('mouseLeave')
+  @control.on('mouseLeave')
   hideTooltipUnlessFocussed() {
     if (!this.refs.rippleControl.keyboardFocused) {
       this.setState({tooltipShown: false})

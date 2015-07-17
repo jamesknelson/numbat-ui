@@ -1,11 +1,12 @@
-import './FocusRipple.less'
-import React, {PropTypes} from "react"
-import Base from "../Base"
+import './BeaconRipple.less'
+import React, {Component, PropTypes} from "react"
+import {base} from "../../util/decorators"
 
 
-export default class FocusRipple extends Base {
+@base()
+export default class BeaconRipple extends Component {
   static propTypes = {
-    show: PropTypes.bool,
+    control: PropTypes.object,
     type: PropTypes.oneOf([
       "primary",
       "accent",
@@ -19,11 +20,11 @@ export default class FocusRipple extends Base {
   render() {
     const classes = {
       [`is-${this.props.type}`]: true,
-      "is-shown": this.props.show,
+      "is-shown": this.props.control.beacon,
     }
 
     return (
-      <div {...this.baseProps({classes})}>
+      <div {...this.base({classes})}>
         <div className={this.c("inner")} />
       </div>
     )

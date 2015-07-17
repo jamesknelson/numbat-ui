@@ -1,5 +1,19 @@
 import {mergeFunctions} from './functions'
+import originalBase from 'react-base'
+import originalBaseControl from 'react-base-control'
 
+
+export function base(options) {
+  const base = originalBase("nui", options)
+  base.on = originalBase.on
+  return base
+}
+
+export function baseControl(options) {
+  const baseControl = originalBaseControl("nui", options)
+  baseControl.on = originalBaseControl.on
+  return baseControl
+}
 
 export function bound(target, name, descriptor) {
   const { value } = descriptor
@@ -17,7 +31,6 @@ export function bound(target, name, descriptor) {
     }
   }
 }
-
 
 export function onWindow(callbackProps) {
   const callbacks = Symbol()

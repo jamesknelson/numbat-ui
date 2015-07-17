@@ -1,0 +1,90 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-LabeledButtonContent {
+  .nui-ease-out();
+  .nui-type-button();
+
+  border-radius: 2px;
+  overflow: hidden;
+  user-select: none;
+
+  //This is need so that ripples do not bleed
+  //past border radius.
+  //See: http://stackoverflow.com/questions/17298739/css-overflow-hidden-not-working-in-chrome-when-parent-has-border-radius-and-chil
+  transform: translate(0, 0);
+
+  position: relative;
+  height: @nui-button-h;
+  line-height: @nui-button-h;
+  min-width: @nui-button-min-width;
+  padding: 0 @nui-button-inner-padding-w;
+  margin: 0;
+
+  &-label {
+    position: relative;
+  }
+
+  &-default-inner {
+    color: @nui-light-text;
+    background-color: @white;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-highlight-hover;
+    }
+  }
+
+  &-transparent-inner {
+    color: @nui-light-text;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-highlight-hover;
+    }
+  }
+
+  &-primary-inner {
+    color: @nui-primary;
+    background-color: @white;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-highlight-primary-hover;
+    }
+  }
+
+  &-primary-solid-inner {
+    color: @white;
+    background-color: @nui-primary;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-primary-hover;
+    }
+  }
+
+  &-accent-inner {
+    color: @nui-accent;
+    background-color: @white;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-highlight-accent-hover;
+    }
+  }
+
+  &-accent-solid-inner {
+    color: @white;
+    background-color: @nui-accent;
+
+    &:hover,
+    &.nui-FlatButton-focused-inner {
+      background-color: @nui-accent-hover;
+    }
+  }
+
+  &-disabled-inner {
+    color: @nui-light-hint;
+    background-color: @nui-highlight-disabled !important;
+  }
+}

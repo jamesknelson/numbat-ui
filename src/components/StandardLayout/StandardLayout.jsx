@@ -10,14 +10,14 @@
 // `menuOpen` at other times.
 
 import './StandardLayout.less'
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
-import {bound} from "../../util/decorators"
+import {base, bound} from "../../util/decorators"
 import {lg, mg, sm} from '../../util/MediaQueries'
-import Base from "../Base"
 
 
-export default class StandardLayout extends Base {
+@base()
+export default class StandardLayout extends Component {
   static propTypes = {
     menu: React.PropTypes.node.isRequired,
     view: React.PropTypes.node.isRequired,
@@ -37,8 +37,7 @@ export default class StandardLayout extends Base {
   }
 
 
-  @bound
-  onLgMediaQueryChange({matches}) {
+  @bound onLgMediaQueryChange({matches}) {
     // Show/hide menu when resizing to/from a large window
     if ((matches && !this.props.menuOpen) || (!matches && this.props.menuOpen)) {
       this.props.onChangeMenuOpen(!this.props.menuOpen)
@@ -46,8 +45,7 @@ export default class StandardLayout extends Base {
   }
 
 
-  @bound
-  onViewContainerClick() {
+  @bound onViewContainerClick() {
     // Hide the menu on small screens when a click is made
     if (this.props.menuOpen && !this.splittable) {
       this.props.onChangeMenuOpen(false) 
@@ -84,7 +82,7 @@ export default class StandardLayout extends Base {
     }
 
     return (
-      <div {...this.baseProps({classes})}>
+      <div {...this.base({classes})}>
         <div className={this.c("menu")}>{this.props.menu}</div>
         <CSSTransitionGroup
           transitionName={this.c("navigation")}

@@ -28,7 +28,8 @@
     "invariant": "^1.0.2",
     "react": "^0.14.0-beta1",
     "react-addons-css-transition-group": "^0.14.0-beta1",
-    "react-base": "^0.1.1",
+    "react-base": "^0.2.0",
+    "react-base-control": "^0.1.0",
     "react-dom": "^0.14.0-beta1"
   }
 }

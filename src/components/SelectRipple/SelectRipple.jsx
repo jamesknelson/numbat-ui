@@ -1,14 +1,13 @@
-import './TouchRipple.less'
-import React, {PropTypes} from "react"
+import './SelectRipple.less'
+import React, {Component, PropTypes} from "react"
 import ReactDOM from "react-dom"
+import {base} from "../../util/decorators"
 import {offset as DOMOffset} from "../../util/DOMUtil"
-import {bound} from "../../util/decorators"
 import {delay} from "../../util/functions"
-import Base from "../Base"
-import Target from "../Target"
 
 
-class RippleCircle extends Base {
+@base()
+class SelectRippleCircle extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     started: PropTypes.bool.isRequired,
@@ -24,7 +23,7 @@ class RippleCircle extends Base {
     }
 
     return (
-      <div {...this.baseProps({classes})}>
+      <div {...this.base({classes})}>
         <div className={this.c("inner")} />
       </div>
     )
@@ -32,11 +31,11 @@ class RippleCircle extends Base {
 }
 
 
-export default class TouchRipple extends Base {
+@base()
+export default class SelectRipple extends Component {
   static propTypes = {
     centerRipple: PropTypes.bool,
-    className: PropTypes.string,
-    factory: PropTypes.func.isRequired,
+    control: PropTypes.object,
     type: PropTypes.oneOf([
       "primary",
       "accent",
@@ -56,59 +55,48 @@ export default class TouchRipple extends Base {
   }
 
 
-  render() {
-    const ripples = rippleElements(this.state.ripples)
+  componentWillReceiveProps(nextProps) {
+    const {selecting: e, disabled} = nextProps.control
 
-    // We need our ripples' click target to take up the entire button target,
-    // but the ripples should only be visible inside the botton, so return a
-    // wrapper, but pass out ripples through a factory to the caller.
-    return (
-      <Target {...this.baseProps()}
-        on={this.start}
-        off={this.end}>
-        {this.props.factory(null, ripples)}
-      </Target>
-    )
-  }
+    if (!this.props.control.selecting && !disabled && e) {
+      const ripples = this.state.ripples
+      const nextKey = ripples[ripples.length-1].key + 1
+      const nextRipple = ripples.find(r => !r.started)
+      const el = ReactDOM.findDOMNode(this)
 
+      nextRipple.started = true
+      nextRipple.style = this.props.centerRipple ? {} : rippleStyle(el, nextProps.control.selecting)
 
-  @bound
-  start(e) {
-    const ripples = this.state.ripples
-    const nextKey = ripples[ripples.length-1].key + 1
-    const nextRipple = ripples.find(r => !r.started)
-    const el = ReactDOM.findDOMNode(this)
-
-    nextRipple.started = true
-    nextRipple.style = this.props.centerRipple ? {} : rippleStyle(el, e)
-
-    // Add an unstarted ripple at the end
-    ripples.push({
-      type: this.props.type,
-      key: nextKey,
-      started: false,
-      ending: false,
-    })
-
-    this.setState({ripples})
-  }
-
-
-  @bound
-  end() {
-    const ripples = this.state.ripples
-    const endingRipple = ripples.find(r => r.started && !r.ending)
-
-    if (endingRipple) {
-      // Wait 2 seconds and remove the ripple from DOM
-      endingRipple.ending =
-        delay(2000, () => {
-          ripples.shift()
-          this.setState({ripples})
-        })
+      // Add an unstarted ripple at the end
+      ripples.push({
+        type: this.props.type,
+        key: nextKey,
+        started: false,
+        ending: false,
+      })
 
       this.setState({ripples})
     }
+    else if (this.props.control.selecting && !e) {
+      const ripples = this.state.ripples
+      const endingRipple = ripples.find(r => r.started && !r.ending)
+
+      if (endingRipple) {
+        // Wait 2 seconds and remove the ripple from DOM
+        endingRipple.ending =
+          delay(2000, () => {
+            ripples.shift()
+            this.setState({ripples})
+          })
+
+        this.setState({ripples})
+      }
+    }
+  }
+
+
+  render() {
+    return <div className={this.cRoot()}>{rippleElements(this.state.ripples)}</div>
   }
 
 
@@ -120,14 +108,12 @@ export default class TouchRipple extends Base {
 }
 
 
-function rippleStyle(el, e) {
+function rippleStyle(el, {x, y}) {
   const elHeight = el.offsetHeight
   const elWidth = el.offsetWidth
   const offset = DOMOffset(el)
-  const pageX = e.pageX == undefined ? e.nativeEvent.pageX : e.pageX
-  const pageY = e.pageY == undefined ? e.nativeEvent.pageY : e.pageY
-  const pointerX = pageX - offset.left
-  const pointerY = pageY - offset.top
+  const pointerX = x - offset.left
+  const pointerY = y - offset.top
   const topLeftDiag = calcDiag(pointerX, pointerY)
   const topRightDiag = calcDiag(elWidth - pointerX, pointerY)
   const botRightDiag = calcDiag(elWidth - pointerX, elHeight - pointerY)
@@ -148,7 +134,7 @@ function rippleStyle(el, e) {
 
 function rippleElements(ripples) {
   return ripples.map(ripple =>
-    <RippleCircle
+    <SelectRippleCircle
       type={ripple.type}
       key={ripple.key}
       started={ripple.started}

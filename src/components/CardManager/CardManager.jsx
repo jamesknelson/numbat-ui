@@ -139,19 +139,10 @@ export default class CardManager extends Base {
 //           </ui.Paper>
 //         </div>
 //         <div className="CardManager-card">
-//           <ui.CardLayout
-//             className="CardManager-card-layout"
-//             actions={cardActions}
-//             header={cardHeader}
-//             main={cardMain}
-//             footer={cardFooter}
-//           />
+//           
 //         </div>
 //         <div className="CardManager-action">
-//           <ui.FloatingActionButtonExpander iconType="add">
-//             <ui.FloatingActionButton iconType="edit" />
-//             <ui.FloatingActionButton iconType="F" />
-//           </ui.FloatingActionButtonExpander>
+//           
 //         </div>
 //       </div>
 //     </div>
