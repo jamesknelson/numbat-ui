@@ -1,0 +1,44 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-FieldLine {
+  position: relative;
+  display: block;
+  width: 100%;
+
+  margin-top: @nui-field-line-h / 2 - 1px;
+  border-top: 1px solid @nui-light-divider;
+  padding-bottom: @nui-field-line-h / 2;
+
+  &-disabled {
+    border-top-style: dotted;
+    border-width: 2px;
+  }
+
+  &::before, &::after {
+    content: '';
+    height: 2px;
+    top: -2px;
+    width: 0;
+    position: absolute;
+    background-color: @nui-primary;
+    .nui-ease-out();
+  }
+
+  &-full::before,
+  &-full::after {
+    width: 50%;
+  }
+
+  &-half::before,
+  &-half::after {
+    width: 25%;
+  }
+
+  &::before {
+    left: 50%;
+  }
+
+  &::after {
+    right: 50%;
+  }
+}

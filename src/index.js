@@ -24,6 +24,7 @@ export { default as FloatingActionButtonExpander } from './components/FloatingAc
 export { default as Icon } from './components/Icon/Icon'
 export { default as IconButton } from './components/IconButton/IconButton'
 export { default as IconMenu } from './components/IconMenu/IconMenu'
+export { default as InputField } from './components/InputField/InputField'
 export { default as List,
          ListDivider,
          ListTile,

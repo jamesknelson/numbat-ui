@@ -1,0 +1,25 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-FieldLabel {
+  &-spacer {
+    height: @nui-field-label-line-height + @nui-field-label-padding-bottom;
+  }
+
+  &-label {
+    .nui-ease-out(@duration: 200ms);
+  }
+
+  &-raised &-label {
+    .nui-type-label();
+  }
+
+  &-lowered &-label {
+    transform: translateY(@nui-field-label-padding-bottom + @nui-field-label-line-height);
+    .nui-type-input();
+    color: @nui-light-hint;
+  }
+
+  &-active:not(&-disabled) &-label {
+    color: @nui-primary;
+  }
+}
