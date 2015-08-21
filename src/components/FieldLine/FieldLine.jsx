@@ -14,7 +14,7 @@ export default class FieldLine extends Component {
 
   render() {
     const classes = {
-      full: this.props.active,
+      full: this.props.active && !this.props.disabled,
       half: this.props.selecting || this.props.acting,
       disabled: this.props.disabled,
     }

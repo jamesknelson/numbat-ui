@@ -6,6 +6,24 @@
   &-indicator {
     .nui-type-input();
     outline: none;
+
+    &::after {
+      content: "";
+      position: absolute;
+      border: 5px solid transparent;
+      border-top-color: @nui-light-divider;
+      right: 5px;
+      top: @nui-field-line-h/2 - 2px;
+      height: 2px;
+      width: 2px;
+      .nui-ease-out(@property: border-top-color);
+    }
+  }
+
+  &-open &-indicator {
+    &::after {
+      border-top-color: @nui-primary;
+    }
   }
 
   &-disabled &-indicator {

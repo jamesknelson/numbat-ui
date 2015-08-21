@@ -35,7 +35,7 @@ export class MenuItem extends Component {
   }
 
 
-  controlPrimaryAction() {
+  controlPrimaryAction(e) {
     this.context.onSelectItem(this.props.value)
   }
 
