@@ -17,7 +17,7 @@ export default class Input extends Component {
   }
 
   render() {
-    const hint = this.props.hint &&
+    const hint = this.props.hint && !this.props.value &&
       <div className={this.c('hint', {visible: this.props.value.empty})}>
         {this.props.hint}
       </div>

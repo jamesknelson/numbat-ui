@@ -32,6 +32,7 @@ export class MenuItem extends Component {
 
   static contextTypes = {
     onSelectItem: PropTypes.func.isRequired,
+    value: PropTypes.any,
   }
 
 
@@ -41,8 +42,12 @@ export class MenuItem extends Component {
 
 
   render() {
+    const classes = {
+      active: this.props.value === this.context.value,
+    }
+
     return (
-      <div {...this.base()}>
+      <div {...this.base({classes})}>
         <SelectRipple type="highlight" control={this.control} />
         <span className={this.c("label")}>{this.props.label || this.props.value}</span>
       </div>
@@ -58,6 +63,7 @@ class MenuPopup extends Component {
     open: PropTypes.bool.isRequired,
     side: PropTypes.oneOf(["left", "right"]),
     children: PropTypes.node.isRequired,
+    value: PropTypes.any,
   }
 
   static defaultProps = {
@@ -66,11 +72,15 @@ class MenuPopup extends Component {
 
   static childContextTypes = {
     onSelectItem: PropTypes.func.isRequired,
+    value: PropTypes.any,
   }
 
 
   getChildContext() {
-    return {onSelectItem: this.onSelectItem}
+    return {
+      onSelectItem: this.onSelectItem,
+      value: this.props.value,
+    }
   }
 
 
@@ -174,6 +184,7 @@ class MenuPopup extends Component {
 export default class Menu extends Component {
   static propTypes = {
     open: PropTypes.bool.isRequired,
+    value: PropTypes.any,
   }
 
 

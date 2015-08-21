@@ -49,6 +49,7 @@ class MenuFieldIndicator extends Component {
           onSelectItem={this.onSelectItem}
           open={this.props.open}
           side="right"
+          value={this.props.value}
         >
           {this.props.children}
         </Menu>
