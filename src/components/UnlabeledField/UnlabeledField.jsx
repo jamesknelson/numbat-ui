@@ -1,7 +1,6 @@
-import './LabeledField.less'
+import './UnlabeledField.less'
 import React, {Component, PropTypes} from "react"
 import {baseControl} from "../../util/decorators"
-import FieldLabel from "../FieldLabel/FieldLabel"
 import FieldLine from "../FieldLine/FieldLine"
 
 
@@ -9,7 +8,6 @@ import FieldLine from "../FieldLine/FieldLine"
 export default class LabeledField extends Component {
   static propTypes = {
     controlFactory: PropTypes.func.isRequired,
-    label: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
   }
@@ -23,16 +21,10 @@ export default class LabeledField extends Component {
     )
 
     return (
-      <FieldLabel
-        {...this.targetCallbacks()}
-        className={this.cRoot()}
-        control={this.control}
-        empty={!this.props.value}
-        label={this.props.label}
-      >
+      <div {...this.targetCallbacks()} className={this.cRoot()}>
         {this.props.controlFactory(controlProps)}
         <FieldLine control={this.control} />
-      </FieldLabel>
+      </div>
     )
   }
 }

@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from "react"
 import {base} from "../../util/decorators"
 import Input from "../Input/Input"
 import LabeledField from "../LabeledField/LabeledField"
+import UnlabeledField from "../UnlabeledField/UnlabeledField"
 
 
 const InputFactory = React.createFactory(Input)
@@ -17,9 +18,10 @@ export default class InputField extends Component {
   }
 
   render() {
-    // TODO: use UnlabeledField when appropriate instead
+    const Field = this.props.label ? LabeledField : UnlabeledField
+
     return (
-      <LabeledField {...this.base()} controlFactory={InputFactory} />
+      <Field {...this.base()} controlFactory={InputFactory} />
     )
   }
 }

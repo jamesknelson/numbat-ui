@@ -1,34 +1,35 @@
 import './Input.less'
 import React, {Component, PropTypes} from "react"
-import {baseControl} from "../../util/decorators"
-import Hint from "../Hint/Hint"
+import {base} from "../../util/decorators"
 
 
-@baseControl({passthrough: {force: ['value']}})
+@base({passthrough: {force: ['value', 'disabled']}})
 export default class Input extends Component {
   static propTypes = {
     hint: PropTypes.string,
     value: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
   }
 
   render() {
     const inputProps = Object.assign(
       this.passthrough(),
-      {className: this.c("input")},
-      this.callbacks
+      {className: this.c("input")}
     )
 
     const hint = this.props.hint &&
-      <Hint className={this.c('hint')} visible={!!this.props.value.empty} />
+      <div className={this.c('hint', {visible: this.props.value.empty})}>
+        {this.props.hint}
+      </div>
 
     const classes = {
-      disabled: this.control.disabled,
+      disabled: this.props.disabled,
     }
 
     return (
       <div className={this.cRoot(classes)}>
-        <input {...inputProps} />
         {hint}
+        <input {...inputProps} />
       </div>
     )
   }

@@ -3,7 +3,7 @@
 .nui-Input {
   &-input {
     .nui-type-input();
-    display: inline-block;
+    display: block;
     position: relative;
     background: transparent;
     border-width: 0;
@@ -11,10 +11,17 @@
     width: 100%;
     padding: 0;
     margin: 0;
+    height: @nui-field-line-h;
     .nui-ease-out(@property: color);
   }
 
   &-disabled &-input {
     color: @nui-light-hint;
+  }
+
+  &-hint {
+    .nui-type-input();    
+    color: @nui-light-hint;
+    position: absolute;
   }
 }
