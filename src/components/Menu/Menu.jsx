@@ -75,12 +75,16 @@ class MenuPopup extends Component {
 
 
   componentDidMount() {
-    this.updatePosition(this.props)
+    if (this.props.open) {
+      this.updatePosition(this.props.rect)
+    }
   }
 
 
   componentWillReceiveProps(newProps) {
-    this.updatePosition(newProps)
+    if (newProps.open && !this.props.open) {
+      this.updatePosition(newProps.rect)
+    }
   }
 
 
@@ -90,8 +94,8 @@ class MenuPopup extends Component {
   }
 
   
-  updatePosition({rect, open}) {
-    if (!open || !rect) return
+  updatePosition(rect) {
+    if (!rect) return
 
     const {top, left, width} = rect
     const el = ReactDOM.findDOMNode(this)
@@ -184,11 +188,13 @@ export default class Menu extends Component {
 
 
   componentWillReceiveProps(newProps) {
-    this.updatePosition()
+    if (newProps.open && !this.props.open) {
+      this.updatePosition()
+    }
   }
 
 
-  updatePosition(newProps, oldProps) {
+  updatePosition() {
     this.setState({rect: ReactDOM.findDOMNode(this).getBoundingClientRect()})
   }
 
