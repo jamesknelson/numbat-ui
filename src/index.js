@@ -38,6 +38,7 @@ export { default as List,
          ListLabel,
          ListLabeledText } from './components/List/List'
 export { default as Menu, MenuItem, MenuDivider } from './components/Menu/Menu'
+export { default as MenuField } from './components/MenuField/MenuField'
 export { default as NavMenu, NavMenuItem, NavMenuDivider } from './components/NavMenu/NavMenu'
 export { default as Paper } from './components/Paper/Paper'
 export { default as RaisedButton } from './components/RaisedButton/RaisedButton'

@@ -1,27 +1,32 @@
 import './InputField.less'
 import React, {Component, PropTypes} from "react"
-import {base} from "../../util/decorators"
+import {baseControl} from "../../util/decorators"
 import Input from "../Input/Input"
-import LabeledField from "../LabeledField/LabeledField"
-import UnlabeledField from "../UnlabeledField/UnlabeledField"
+import Field from "../Field/Field"
 
 
-const InputFactory = React.createFactory(Input)
-
-
-@base({passthrough: {force: ['label', 'icon', 'hint']}})
+@baseControl({passthrough: {force: ['value']}})
 export default class InputField extends Component {
   static propTypes = {
-    hint: PropTypes.string,
+    value: PropTypes.string.isRequired,
     label: PropTypes.string,
-    icon: PropTypes.string,
   }
 
   render() {
-    const Field = this.props.label ? LabeledField : UnlabeledField
-
     return (
-      <Field {...this.base()} controlFactory={InputFactory} />
+      <Field
+        {...this.targetCallbacks()}
+        {...this.control}
+        className={this.cRoot()}
+        empty={!this.props.value}
+        label={this.props.label}
+      >
+        <Input
+          {...this.passthrough()}
+          {...this.focusableCallbacks()}
+          className={this.c('control')}
+        />  
+      </Field>
     )
   }
 }

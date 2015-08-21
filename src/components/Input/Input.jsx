@@ -1,5 +1,6 @@
 import './Input.less'
 import React, {Component, PropTypes} from "react"
+import ReactDOM from "react-dom"
 import {base} from "../../util/decorators"
 
 
@@ -11,25 +12,24 @@ export default class Input extends Component {
     disabled: PropTypes.bool,
   }
 
-  render() {
-    const inputProps = Object.assign(
-      this.passthrough(),
-      {className: this.c("input")}
-    )
+  focus() {
+    ReactDOM.findDOMNode(this.refs.input).focus()
+  }
 
+  render() {
     const hint = this.props.hint &&
       <div className={this.c('hint', {visible: this.props.value.empty})}>
         {this.props.hint}
       </div>
 
-    const classes = {
-      disabled: this.props.disabled,
-    }
-
     return (
-      <div className={this.cRoot(classes)}>
+      <div className={this.cRoot({disabled: this.props.disabled})}>
         {hint}
-        <input {...inputProps} />
+        <input
+          {...this.passthrough()}
+          className={this.c("input")}
+          ref="input"
+        />
       </div>
     )
   }

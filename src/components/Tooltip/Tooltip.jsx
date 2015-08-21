@@ -11,11 +11,6 @@ export default class Tooltip extends Component {
   }
 
 
-  componentDidMount() {
-    this._setRippleSize()
-  }
-
-
   componentDidUpdate() {
     this._setRippleSize()
   }

@@ -6,18 +6,19 @@ import {base} from "../../util/decorators"
 @base()
 export default class FieldLabel extends Component {
   static propTypes = {
-    control: PropTypes.object.isRequired,
     label: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool.isRequired,
     empty: PropTypes.bool.isRequired,
   }
 
   render() {
-    const control = this.props.control
+    const raised = this.props.active || !this.props.empty
     const classes = {
-      raised: control.active || !this.props.empty,
-      lowered: !control.active && this.props.empty,
-      active: control.active,
-      disabled: control.disabled,
+      raised: raised,
+      lowered: !raised,
+      active: this.props.active,
+      disabled: this.props.disabled,
     }
 
     return (

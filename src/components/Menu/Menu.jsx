@@ -26,7 +26,7 @@ export class MenuDivider extends Component {
 @baseControl()
 export class MenuItem extends Component {
   static propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     value: PropTypes.any.isRequired,
   }
 
@@ -44,7 +44,7 @@ export class MenuItem extends Component {
     return (
       <div {...this.base()}>
         <SelectRipple type="highlight" control={this.control} />
-        <span className={this.c("label")}>{this.props.label}</span>
+        <span className={this.c("label")}>{this.props.label || this.props.value}</span>
       </div>
     )
   }
@@ -75,17 +75,12 @@ class MenuPopup extends Component {
 
 
   componentDidMount() {
-    if (this.props.open) {
-      this.updatePosition(this.props.rect)
-    }
+    this.updatePosition(this.props)
   }
 
 
   componentWillReceiveProps(newProps) {
-    // Move the menu into place before we open it
-    if (newProps.open) {
-      this.updatePosition(newProps.rect)
-    }
+    this.updatePosition(newProps)
   }
 
 
@@ -95,7 +90,10 @@ class MenuPopup extends Component {
   }
 
   
-  updatePosition({top, left, width}) {
+  updatePosition({rect, open}) {
+    if (!open || !rect) return
+
+    const {top, left, width} = rect
     const el = ReactDOM.findDOMNode(this)
 
     withoutTransition(el, () => {
@@ -146,8 +144,9 @@ class MenuPopup extends Component {
 
       if (!this.props.open) {
         el.classList.add(closedClass)
-        el.style.visibility = ''
       }
+
+      el.style.visibility = ''
     })
 
     // Force a relayout once transitions are disabled
@@ -174,19 +173,18 @@ export default class Menu extends Component {
   }
 
 
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
+  state = {}
 
 
   componentDidMount() {
-    this.updatePosition(this.props, {open: false})
+    if (this.props.open) {
+      this.updatePosition()
+    }
   }
 
 
   componentWillReceiveProps(newProps) {
-    this.updatePosition(newProps, this.props)
+    this.updatePosition()
   }
 
 
@@ -205,10 +203,6 @@ export default class Menu extends Component {
 
 
   render() {
-    const menuPopup = this.state.rect
-      ? <MenuPopup {...this.props} rect={this.state.rect} />
-      : DOM.div()
-
     return (
       <RenderInBody className={this.cRoot()}>
         <div
@@ -216,7 +210,7 @@ export default class Menu extends Component {
           onScroll={this.cancelEventIfOpen}
           onWheel={this.cancelEventIfOpen}
         >
-          {menuPopup}
+          <MenuPopup {...this.props} rect={this.state.rect} />
         </div>
       </RenderInBody>
     )

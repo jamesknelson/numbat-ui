@@ -6,15 +6,17 @@ import {base} from "../../util/decorators"
 @base()
 export default class FieldLine extends Component {
   static propTypes = {
-    control: PropTypes.object.isRequired,
+    acting: PropTypes.bool.isRequired,
+    selecting: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+    active: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool.isRequired,
   }
 
   render() {
-    const control = this.props.control
     const classes = {
-      full: control.active,
-      half: control.selecting || control.acting,
-      disabled: control.disabled,
+      full: this.props.active,
+      half: this.props.selecting || this.props.acting,
+      disabled: this.props.disabled,
     }
 
     return (

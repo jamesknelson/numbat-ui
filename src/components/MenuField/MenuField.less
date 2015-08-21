@@ -1,0 +1,14 @@
+@import (reference) '../../theme/theme.less';
+
+.nui-MenuFieldIndicator {
+  position: relative;
+
+  &-indicator {
+    .nui-type-input();
+    outline: none;
+  }
+
+  &-disabled &-indicator {
+    color: @nui-light-hint;
+  }
+}
