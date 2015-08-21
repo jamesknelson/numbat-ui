@@ -13,7 +13,7 @@ class MenuFieldIndicator extends Component {
   static propTypes = {
     value: PropTypes.string.isRequired,
     open: PropTypes.bool.isRequired,
-    onSelectItem: PropTypes.func.isRequired,
+    onSelectItem: PropTypes.func,
     disabled: PropTypes.bool,
     tabIndex: PropTypes.number, 
   }
@@ -64,7 +64,7 @@ export default class MenuField extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     value: PropTypes.string.isRequired,
-    onSelectItem: PropTypes.func.isRequired,
+    onSelectItem: PropTypes.func,
     disabled: PropTypes.bool,
     label: PropTypes.string,
   }
@@ -94,9 +94,16 @@ export default class MenuField extends Component {
 
 
   @baseControl.on('keyDown')
-  closeOnEscape(e) {
-    if (e.keyCode == KeyCodes.ESC) {
-      this.toggle(false)
+  onKeyDown(e) {
+    switch (e.keyCode) {
+      case KeyCodes.DOWN:
+      case KeyCodes.UP:
+        this.toggle(true)
+        break
+
+      case KeyCodes.ESC:
+        this.toggle(false)
+        break
     }
   }
 
